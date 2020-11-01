@@ -11,6 +11,8 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+    networks: 
+      - ew_net
 
   wordpress:
     depends_on:
@@ -23,6 +25,36 @@ services:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
+    working_dir: /var/www/html  
+    volumes:
+      - wpdata:/var/www/html/wp-content
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    networks: 
+      - ew_net
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks: 
+      - ew_net
+
 
 volumes:
   db_data:
+    driver: local
+    driver_opts:
+        type: none
+        device: C:\Users\elena\OneDrive\Documents\Web_page_3\db_data
+        o: bind
+  wpdata:
+    driver: local
+    driver_opts:
+        type: none
+        device: C:\Users\elena\OneDrive\Documents\Web_page_3\wp-content
+        o: bind
+
+networks: 
+  ew_net:
+    driver: bridge
