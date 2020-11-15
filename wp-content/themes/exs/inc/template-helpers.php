@@ -260,7 +260,11 @@ if ( ! function_exists( 'exs_get_layout_css_classes' ) ) :
 			$exs_sidebar_position_option = exs_get_category_sidebar_position();
 		} else {
 			if ( ! is_single() ) {
-				$exs_sidebar_position_option = exs_option( 'blog_sidebar_position', 'right' );
+				if ( is_search() ) {
+					$exs_sidebar_position_option = exs_option( 'search_sidebar_position', 'no' );
+				} else {
+					$exs_sidebar_position_option = exs_option( 'blog_sidebar_position', 'right' );
+				}
 			} else {
 				$exs_sidebar_position_option = exs_option( 'blog_single_sidebar_position', 'right' );
 			}
@@ -363,12 +367,6 @@ if ( ! function_exists( 'exs_get_layout_css_classes' ) ) :
 		//left sidebar
 		if ( 'left' === $exs_sidebar_position_option ) {
 			$exs_return['body'] .= ' sidebar-left';
-		}
-
-		//no sidebar for search
-		if ( is_search() ) {
-			$exs_return['body']  = 'no-sidebar';
-			$exs_return['aside'] = false;
 		}
 
 		return $exs_return;
@@ -596,6 +594,7 @@ if ( ! function_exists( 'exs_body_classes' ) ) :
 		$exs_container_width            = exs_option( 'main_container_width', '1140' );
 		$exs_container_post_width       = exs_option( 'blog_single_container_width', '' );
 		$exs_container_blog_width       = exs_option( 'blog_container_width', '' );
+		$exs_container_search_width     = exs_option( 'search_container_width', '' );
 		$exs_container_bbpress_width    = exs_option( 'bbpress_container_width', '' );
 		$exs_container_buddypress_width = exs_option( 'buddypress_container_width', '' );
 		$exs_container_wpjm_width       = exs_option( 'wpjm_container_width', '' );
@@ -610,6 +609,9 @@ if ( ! function_exists( 'exs_body_classes' ) ) :
 		}
 		if ( is_singular( 'post' ) && ! empty( $exs_container_post_width ) ) {
 			$exs_container_width = $exs_container_post_width;
+		}
+		if ( is_search() && ! empty( $exs_container_search_width ) ) {
+			$exs_container_width = $exs_container_search_width;
 		}
 		if ( ( is_home() || is_category() || is_tag() || is_date() || is_author() ) && ! empty( $exs_container_blog_width ) ) {
 			$exs_container_width = $exs_container_blog_width;
@@ -1105,11 +1107,17 @@ if ( ! function_exists( 'exs_the_author' ) ) :
 			//blog loop
 		} else {
 
-			$exs_show_author   = exs_option( 'blog_show_author', true );
-			$exs_author_avatar = exs_option( 'blog_show_author_avatar', '' );
-			$exs_author_word   = exs_option( 'blog_before_author_word', '' );
-			$exs_show_icons    = ! exs_option( 'blog_hide_meta_icons', false );
-
+			if ( is_search() ) {
+				$exs_show_author   = exs_option( 'search_show_author', true );
+				$exs_author_avatar = exs_option( 'search_show_author_avatar', '' );
+				$exs_author_word   = exs_option( 'search_before_author_word', '' );
+				$exs_show_icons    = ! exs_option( 'search_hide_meta_icons', false );
+			} else {
+				$exs_show_author   = exs_option( 'blog_show_author', true );
+				$exs_author_avatar = exs_option( 'blog_show_author_avatar', '' );
+				$exs_author_word   = exs_option( 'blog_before_author_word', '' );
+				$exs_show_icons    = ! exs_option( 'blog_hide_meta_icons', false );
+			}
 		}
 
 		if ( ! empty( $exs_show_author ) ) :
@@ -1186,11 +1194,17 @@ if ( ! function_exists( 'exs_the_date' ) ) :
 			//blog loop
 		} else {
 
-			$exs_show_date  = exs_option( 'blog_show_date', true );
-			$exs_date_word  = exs_option( 'blog_before_date_word', '' );
-			$exs_date_diff  = exs_option( 'blog_show_human_date', '' );
-			$exs_show_icons = ! exs_option( 'blog_hide_meta_icons', false );
-
+			if ( is_search() ) {
+				$exs_show_date  = exs_option( 'search_show_date', true );
+				$exs_date_word  = exs_option( 'search_before_date_word', '' );
+				$exs_date_diff  = exs_option( 'search_show_human_date', '' );
+				$exs_show_icons = ! exs_option( 'search_hide_meta_icons', false );
+			} else {
+				$exs_show_date  = exs_option( 'blog_show_date', true );
+				$exs_date_word  = exs_option( 'blog_before_date_word', '' );
+				$exs_date_diff  = exs_option( 'blog_show_human_date', '' );
+				$exs_show_icons = ! exs_option( 'blog_hide_meta_icons', false );
+			}
 		}
 
 		//override diff if it passed to function
@@ -1263,9 +1277,16 @@ if ( ! function_exists( 'exs_the_categories' ) ) :
 			//blog loop
 		} else {
 
-			$exs_show_categories = exs_option( 'blog_show_categories', false );
-			$exs_categories_word = exs_option( 'blog_before_categories_word', '' );
-			$exs_show_icons      = ! exs_option( 'blog_hide_meta_icons', false );
+			if ( is_search() ) {
+				$exs_show_categories = exs_option( 'search_show_categories', false );
+				$exs_categories_word = exs_option( 'search_before_categories_word', '' );
+				$exs_show_icons      = ! exs_option( 'search_hide_meta_icons', false );
+			} else {
+				$exs_show_categories = exs_option( 'blog_show_categories', false );
+				$exs_categories_word = exs_option( 'blog_before_categories_word', '' );
+				$exs_show_icons      = ! exs_option( 'blog_hide_meta_icons', false );
+			}
+
 
 		}
 
@@ -1326,10 +1347,15 @@ if ( ! function_exists( 'exs_the_tags' ) ) :
 			//blog loop
 		} else {
 
-			$exs_show_tags  = exs_option( 'blog_show_tags', false );
-			$exs_tags_word  = exs_option( 'blog_before_tags_word', '' );
-			$exs_show_icons = ! exs_option( 'blog_hide_meta_icons', false );
-
+			if ( is_search() ) {
+				$exs_show_tags  = exs_option( 'search_show_tags', false );
+				$exs_tags_word  = exs_option( 'search_before_tags_word', '' );
+				$exs_show_icons = ! exs_option( 'search_hide_meta_icons', false );
+			} else {
+				$exs_show_tags  = exs_option( 'blog_show_tags', false );
+				$exs_tags_word  = exs_option( 'blog_before_tags_word', '' );
+				$exs_show_icons = ! exs_option( 'blog_hide_meta_icons', false );
+			}
 		}
 
 		if ( ! empty( $exs_show_tags ) ) :
@@ -1388,9 +1414,14 @@ if ( ! function_exists( 'exs_comment_count' ) ) :
 			//blog loop
 		} else {
 
-			$exs_show_comments = exs_option( 'blog_show_comments_link', 'number' );
-			$exs_show_icons    = ! exs_option( 'blog_hide_meta_icons', false );
+			if ( is_search() ) {
+				$exs_show_comments = exs_option( 'search_show_comments_link', 'number' );
+				$exs_show_icons    = ! exs_option( 'search_hide_meta_icons', false );
 
+			} else {
+				$exs_show_comments = exs_option( 'blog_show_comments_link', 'number' );
+				$exs_show_icons    = ! exs_option( 'blog_hide_meta_icons', false );
+			}
 		}
 
 		if ( ! post_password_required() && ( comments_open() || get_comments_number() ) && $exs_show_comments ) :
@@ -1743,7 +1774,7 @@ if ( ! function_exists( 'exs_read_more_inside_link_markup' ) ) :
 	function exs_read_more_inside_link_markup( $exs_read_more_text = '' ) {
 
 		if ( empty( $exs_read_more_text ) ) {
-			$exs_read_more_text = exs_option( 'blog_read_more_text', '' );
+			$exs_read_more_text = is_search() ? exs_option( 'search_read_more_text', '' ) : exs_option( 'blog_read_more_text', '' );
 		}
 
 		if ( empty( $exs_read_more_text ) ) {
@@ -1796,8 +1827,8 @@ endif;
 if ( ! function_exists( 'exs_read_more_in_excerpt' ) ) :
 	function exs_read_more_in_excerpt( $exs_excerpt ) {
 
-		$exs_read_more_text = exs_option( 'blog_read_more_text', '' );
-		$exs_excerpt_length = exs_option( 'blog_excerpt_length', '' );
+		$exs_read_more_text = is_search() ? exs_option( 'search_read_more_text', '' ) : exs_option( 'blog_read_more_text', '' );
+		$exs_excerpt_length = is_search() ? exs_option( 'search_excerpt_length', '' ) : exs_option( 'blog_excerpt_length', '' );
 
 		//if excerpt length set to 0 manually and no 'read more' - return empty string
 		if ( '0' === $exs_excerpt_length && empty( $exs_read_more_text ) ) {

@@ -13,13 +13,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+$exs_show_title = exs_get_feed_shot_title();
+$exs_layout     = exs_option( 'search_layout', '' ) ? exs_option( 'search_layout', '' ) : 'default';;
+$exs_layout_gap = exs_option( 'search_layout_gap', '' ) ? exs_option( 'search_layout_gap', '' ) : '';;
+
+//additional css classes for #layout div element
+$exs_layout_class  = 'layout-' . $exs_layout;
+
+
+if ( ! empty( $exs_masonry ) ) {
+	exs_enqueue_masonry_action();
+}
+
 $exs_special_cats = exs_get_special_categories_from_options();
-$exs_show_title   = ! exs_option( 'title_show_title', '' ) && get_the_title();
 
 get_header();
 
+//check if no file with selected layout - using default layout
+$exs_layout = file_exists( EXS_THEME_PATH . '/template-parts/blog/' . $exs_layout . '/content.php' ) ? $exs_layout : 'default';
+
 ?>
-	<div id="layout" class="layout-search">
+	<div id="layout" class="layout-search <?php echo esc_attr( $exs_layout_class ); ?>">
 		<?php if ( ! empty( $exs_show_title ) ) : ?>
 			<h1><?php get_template_part( 'template-parts/title/title-text' ); ?></h1>
 			<?php
@@ -91,6 +105,9 @@ get_header();
 					?>
 					</article><!-- .sjb-page -->
 				<?php
+				//regular post //exclude special categories
+				elseif ( 'post' === get_post_type() && ! in_category( $exs_special_cats, get_the_ID() ) ):
+					get_template_part( 'template-parts/blog/' . $exs_layout . '/content' );
 				else :
 					?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

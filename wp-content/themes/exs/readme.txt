@@ -47,6 +47,12 @@ Source: https://pxhere.com/en/photo/166862
 
 == Changelog ==
 
+= 0.7.5, November 6, 2020 =
+* Fix searchform.php for using with the Elementor page builder
+
+= 0.7.4, November 3, 2020 =
++ Search results display options in the Customizer
+
 = 0.7.3, October 29, 2020 =
 + Ajax contact form block patterns added
 * Minor CSS fixes for BuddyPress plugin

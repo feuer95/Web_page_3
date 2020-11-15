@@ -21,9 +21,22 @@ $exs_unique_id = uniqid( 'search-form-' );
 		value="<?php echo get_search_query(); ?>"
 		name="s"
 	/>
-	<button type="submit" class="search-submit"><?php exs_icon( 'magnify' ); ?>
-		<span class="screen-reader-text"><?php echo esc_html_x( 'Search', 'submit button', 'exs' ); ?></span>
-	</button>
+	<?php
+	//fix for Elementor builder
+	if ( function_exists( 'exs_icon' ) ) :
+		?>
+		<button type="submit" class="search-submit"><?php exs_icon( 'magnify' ); ?>
+			<span class="screen-reader-text"><?php echo esc_html_x( 'Search', 'submit button', 'exs' ); ?></span>
+		</button>
+		<?php
+	else:
+		?>
+		<button type="submit" class="search-submit-unstyled">
+			<span><?php echo esc_html_x( 'Search', 'submit button', 'exs' ); ?></span>
+		</button>
+		<?php
+	endif;
+	?>
 
 	<label for="<?php echo esc_attr( $exs_unique_id ); ?>" class="screen-reader-text">
 		<?php echo esc_html_x( 'Search for:', 'label', 'exs' ); ?>

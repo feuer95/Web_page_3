@@ -34,7 +34,7 @@ $exs_side_item = ( ! exs_has_post_thumbnail() ) ? '' : 'side-item';
 
 		<div class="entry-content" itemprop="text">
 			<?php
-			$exs_show_full_text = exs_option( 'blog_show_full_text', false );
+			$exs_show_full_text = is_search() ? exs_option( 'search_show_full_text', false ) : exs_option( 'blog_show_full_text', false );
 
 			if ( empty( $exs_show_full_text ) ) :
 
