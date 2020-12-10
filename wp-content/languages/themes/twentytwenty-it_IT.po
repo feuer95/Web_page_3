@@ -16,6 +16,7 @@ msgid "Our default theme for 2020 is designed to take full advantage of the flex
 msgstr "Il nostro tema predefinito per il 2020 è progettato per sfruttare appieno la flessibilità dell'editor a blocchi. Organizzazioni e aziende hanno la possibilità di creare delle landing page dinamiche con infiniti layout usando i gruppi ed i blocchi colonne. La colonna centrale per il contenuto e la tipografia personalizzabile lo rendono perfetto anche per i blog. Il completo editor di stile ti dà una buona idea di come saranno i tuoi contenuti, anche prima di pubblicare. Puoi dare un tocco personale al tuo sito modificando i colori di sfondo e il colore in risalto all'interno di Personalizza. I colori di tutti gli elementi del tuo sito vengono calcolati automaticamente in base ai colori che scegli, garantendo un contrasto cromatico elevato e accessibile per i tuoi visitatori."
 
 #. Theme Name of the theme
+#: inc/block-patterns.php:20
 msgid "Twenty Twenty"
 msgstr "Twenty Twenty"
 
@@ -36,14 +37,6 @@ msgstr "Il nuovo UMoMA apre i battenti"
 msgid "View Archive <span aria-hidden=\"true\">&rarr;</span>"
 msgstr "Visualizza archivio <span aria-hidden=\"true\">&rarr;</span>"
 
-#: classes/class-twentytwenty-customize.php:126
-msgid "Custom"
-msgstr "Personalizzato"
-
-#: classes/class-twentytwenty-customize.php:125
-msgid "Default"
-msgstr "Predefinito"
-
 #: classes/class-twentytwenty-customize.php:183
 msgid "Apply a custom color for links, buttons, featured images."
 msgstr "Applica un colore personalizzato per link, pulsanti, immagini in evidenza."
@@ -58,10 +51,12 @@ msgstr "Da Signac a Matisse"
 
 #: inc/starter-content.php:73 inc/starter-content.php:88
 #: inc/starter-content.php:105 inc/starter-content.php:120
+#: inc/block-patterns.php:78 inc/block-patterns.php:160
+#: inc/block-patterns.php:174
 msgid "Read More"
 msgstr "Leggi tutto"
 
-#: inc/starter-content.php:99
+#: inc/starter-content.php:99 inc/block-patterns.php:168
 msgid "The Life I Deserve"
 msgstr "La vita che merito"
 
@@ -106,11 +101,11 @@ msgstr "Unisciti al club"
 msgid "Primary Color"
 msgstr "Colore primario"
 
-#: inc/starter-content.php:148
+#: inc/starter-content.php:148 inc/block-patterns.php:45
 msgid "Members get access to exclusive exhibits and sales. Our memberships cost $99.99 and are billed annually."
 msgstr "I membri hanno accesso a mostre e offerte esclusive. L'iscrizione costa $99.99, addebitati annualmente."
 
-#: inc/starter-content.php:67
+#: inc/starter-content.php:67 inc/block-patterns.php:154
 msgid "Works and Days"
 msgstr "Opere e Giorni"
 
@@ -142,13 +137,13 @@ msgstr "Il nuovo UMoMA apre i battenti"
 msgid "&#8220;Cyborgs, as the philosopher Donna Haraway established, are not reverent. They do not remember the cosmos.&#8221;"
 msgstr "\"I Cyborg, come ha stabilito la filosofa Donna Haraway, non sono rispettosi. Non ricordano l'Universo.\""
 
-#: index.php:101
-msgid "search again"
-msgstr "cerca ancora"
-
 #: 404.php:24
 msgid "404 not found"
 msgstr "404 non trovato"
+
+#: index.php:101
+msgid "search again"
+msgstr "cerca ancora"
 
 #. translators: %s: Number of search results.
 #: index.php:39
@@ -171,22 +166,23 @@ msgstr "Su %s"
 msgid "To the top %s"
 msgstr "All'inizio %s"
 
-#. translators: Copyright date format, see https://www.php.net/date
+#. translators: Copyright date format, see
+#. https://www.php.net/manual/datetime.format.php
 #: footer.php:25
 msgctxt "copyright date format"
 msgid "Y"
 msgstr "Y"
 
 #. translators: 1: Comment date, 2: Comment time.
-#: classes/class-twentytwenty-walker-comment.php:69
+#: classes/class-twentytwenty-walker-comment.php:68
 msgid "%1$s at %2$s"
 msgstr "%1$s alle %2$s"
 
-#: classes/class-twentytwenty-walker-comment.php:77
+#: classes/class-twentytwenty-walker-comment.php:82
 msgid "Edit"
 msgstr "Modifica"
 
-#: classes/class-twentytwenty-walker-comment.php:92
+#: classes/class-twentytwenty-walker-comment.php:98
 msgid "Your comment is awaiting moderation."
 msgstr "Il tuo commento è in attesa di moderazione."
 
@@ -216,7 +212,7 @@ msgstr "Commenti"
 msgid "Comments are closed."
 msgstr "I commenti sono chiusi"
 
-#: inc/starter-content.php:177 inc/starter-content.php:187 functions.php:489
+#: inc/starter-content.php:177 inc/starter-content.php:187
 msgid "Primary"
 msgstr "Principale"
 
@@ -229,11 +225,11 @@ msgstr "Menu link ai social"
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr "Modifica <span class=\"screen-reader-text\">%s</span>"
 
-#: functions.php:261
+#: functions.php:265
 msgid "Footer Menu"
 msgstr "Menu nel footer"
 
-#: template-parts/content-cover.php:138 template-parts/content.php:48
+#: template-parts/content.php:48 template-parts/content-cover.php:138
 msgid "Pages:"
 msgstr "Pagine:"
 
@@ -241,13 +237,9 @@ msgstr "Pagine:"
 msgid "Footer"
 msgstr "Footer"
 
-#: template-parts/content-cover.php:138 template-parts/content.php:48
+#: template-parts/content.php:48 template-parts/content-cover.php:138
 msgid "Page"
 msgstr "Pagina"
-
-#: functions.php:494
-msgid "Secondary"
-msgstr "Secondario"
 
 #: classes/class-twentytwenty-customize.php:81
 msgid "Retina logo"
@@ -318,16 +310,8 @@ msgstr "Link social"
 msgid "Close Menu"
 msgstr "Chiudi menu"
 
-#: template-parts/modal-menu.php:73
-msgid "Mobile"
-msgstr "Mobile"
-
 #: searchform.php:27
 msgctxt "submit button"
-msgid "Search"
-msgstr "Cerca"
-
-#: header.php:53 header.php:157
 msgid "Search"
 msgstr "Cerca"
 
@@ -335,35 +319,31 @@ msgstr "Cerca"
 msgid "Menu"
 msgstr "Menu"
 
-#: header.php:88
-msgid "Horizontal"
-msgstr "Orizzontale"
-
 #: template-parts/content.php:36
 msgid "Continue reading"
 msgstr "Continua a leggere"
 
-#: functions.php:546
+#: functions.php:550
 msgctxt "Short name of the larger font size in the block editor."
 msgid "XL"
 msgstr "XL"
 
-#: functions.php:540
+#: functions.php:544
 msgctxt "Short name of the large font size in the block editor."
 msgid "L"
 msgstr "L"
 
-#: functions.php:534
+#: functions.php:538
 msgctxt "Short name of the regular font size in the block editor."
 msgid "M"
 msgstr "M"
 
-#: functions.php:528
+#: functions.php:532
 msgctxt "Short name of the small font size in the block editor."
 msgid "S"
 msgstr "S"
 
-#: functions.php:512
+#: functions.php:516
 msgid "Background Color"
 msgstr "Colore di sfondo"
 
@@ -375,19 +355,19 @@ msgstr "Data dell'articolo"
 msgid "Post author"
 msgstr "Autore articolo"
 
-#: functions.php:262
+#: functions.php:266
 msgid "Social Menu"
 msgstr "Menu social"
 
-#: functions.php:365
+#: functions.php:369
 msgid "Footer #1"
 msgstr "Footer #1"
 
-#: functions.php:377
+#: functions.php:381
 msgid "Footer #2"
 msgstr "Footer #2"
 
-#: functions.php:260
+#: functions.php:264
 msgid "Mobile Menu"
 msgstr "Menu mobile"
 
@@ -421,35 +401,35 @@ msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Cerca &hellip;"
 
-#: functions.php:545
+#: functions.php:549
 msgctxt "Name of the larger font size in the block editor"
 msgid "Larger"
 msgstr "Più grande"
 
-#: functions.php:539
+#: functions.php:543
 msgctxt "Name of the large font size in the block editor"
 msgid "Large"
 msgstr "Grande"
 
-#: functions.php:533
+#: functions.php:537
 msgctxt "Name of the regular font size in the block editor"
 msgid "Regular"
 msgstr "Normale"
 
-#: functions.php:527
+#: functions.php:531
 msgctxt "Name of the small font size in the block editor"
 msgid "Small"
 msgstr "Piccolo"
 
-#: functions.php:484
+#: functions.php:488
 msgid "Accent Color"
 msgstr "Colore di risalto"
 
-#: functions.php:379
+#: functions.php:383
 msgid "Widgets in this area will be displayed in the second column in the footer."
 msgstr "I widgets in quest'area area saranno mostrati nella seconda colonna del footer."
 
-#: functions.php:367
+#: functions.php:371
 msgid "Widgets in this area will be displayed in the first column in the footer."
 msgstr "I widgets in quest'area area saranno mostrati nella prima colonna del footer."
 
@@ -495,7 +475,7 @@ msgstr "Di %s"
 msgid "We could not find any results for your search. You can give it another try through the search form below."
 msgstr "Non siamo riusciti a trovare nessun risultato per la tua ricerca. Puoi fare un altro tentativo usando il modulo di ricerca sottostante."
 
-#: functions.php:340
+#: functions.php:344
 msgid "Skip to the content"
 msgstr "Salta al contenuto"
 
@@ -507,23 +487,19 @@ msgstr "Mostra il sottomenu"
 msgid "Expanded Social links"
 msgstr "Social link espansi"
 
-#: template-parts/modal-menu.php:48
-msgid "Expanded"
-msgstr "Espanso"
-
-#: functions.php:259
+#: functions.php:263
 msgid "Desktop Expanded Menu"
 msgstr "Menù espanso per desktop"
 
-#: functions.php:258
+#: functions.php:262
 msgid "Desktop Horizontal Menu"
 msgstr "Menù orizzontale per desktop"
 
-#: classes/class-twentytwenty-walker-comment.php:127
+#: classes/class-twentytwenty-walker-comment.php:133
 msgid "By Post Author"
 msgstr "Dell'autore dell'articolo"
 
-#: functions.php:499
+#: functions.php:503
 msgid "Subtle Background"
 msgstr "Sfondo delicato"
 
