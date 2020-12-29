@@ -30,26 +30,33 @@
 
 	//toggle CSS class function declaration
 	function toggleElListener(elId, btnId, cssClass, body, bodyClass) {
-		var btn = gid(btnId);
-		var el = gid(elId);
-		if (!btn || !el) {
-			return;
-		}
-		btn.addEventListener('click', function() {
-			if (hasClass(el, cssClass)) {
-				deactivateEl(btn, el, cssClass, body, bodyClass);
-			} else {
-				activateEl(btn, el, cssClass, body, bodyClass);
-			}
-		});
 		//if clicked not on button and element is active - closing
 		body.addEventListener('click', function(e) {
-			if (hasClass(el, cssClass) && e.target !== btn && e.target.closest('#' + btnId) !== btn && !e.target.closest('#' + elId)) {
+			var btn = gid(btnId);
+			var el = gid(elId);
+			if (!btn || !el) {
+				return;
+			}
+			if(e.target.id===btnId||e.target.closest('#' + btnId)){
+				if (hasClass(el, cssClass)) {
+					deactivateEl(btn, el, cssClass, body, bodyClass);
+				} else {
+					activateEl(btn, el, cssClass, body, bodyClass);
+				}
+			}
+
+			if (hasClass(el, cssClass) && e.target.id !== btnId && e.target.closest('#' + btnId) !== btn && !e.target.closest('#' + elId)) {
 				deactivateEl(btn, el, cssClass, body, bodyClass);
 			}
 		});
+		//close modals on scroll
 		if (btnId !== 'message_top_toggle' && btnId !== 'message_bottom_toggle') {
 			w.addEventListener('scroll', function(e) {
+				var btn = gid(btnId);
+				var el = gid(elId);
+				if (!btn || !el) {
+					return;
+				}
 				if (hasClass(el, cssClass)) {
 					deactivateEl(btn, el, cssClass, body, bodyClass);
 				}

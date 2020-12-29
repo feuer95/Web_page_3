@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //this footer displays only widgets so if has no widgets - it will be hidden
 if ( ! is_active_sidebar( 'sidebar-2' ) ) {
+	if( is_customize_preview() ) {
+		echo '<footer id="footer" class="d-none"></footer>';
+	}
 	return;
 }
 

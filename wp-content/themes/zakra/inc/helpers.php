@@ -149,12 +149,13 @@ if ( ! function_exists( 'zakra_footer_copyright' ) ) {
 	 * Get Copyright text.
 	 */
 	function zakra_footer_copyright() {
-		$site_link  = '<a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" >' . get_bloginfo( 'name', 'display' ) . '</a>';
-		$theme_link = '<a href="https://zakratheme.com/" target="_blank" title="' . esc_attr__( 'Zakra', 'zakra' ) . '" rel="author">' . __( 'Zakra', 'zakra' ) . '</a>';
+		$site_link      = '<a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" >' . get_bloginfo( 'name', 'display' ) . '</a>';
+		$theme_link     = '<a href="https://zakratheme.com/" target="_blank" title="' . esc_attr__( 'Zakra', 'zakra' ) . '" rel="nofollow">' . __( 'Zakra', 'zakra' ) . '</a>';
+		$wordpress_link = '<a href="https://wordpress.org/" target="_blank" title="' . esc_attr__( 'WordPress', 'zakra' ) . '" rel="nofollow">' . __( 'WordPress', 'zakra' ) . '</a>';
 
-		/* translators: 1: Current Year, 2: Site Name, 3: Theme Name. */
+		/* translators: 1: Current Year, 2: Site Name, 3: Theme Link, 4: WordPress Link. */
 
-		return sprintf( esc_html__( 'Copyright &copy; %1$s %2$s. Theme: %3$s By ThemeGrill.', 'zakra' ), esc_attr( date( 'Y' ) ), $site_link, $theme_link );
+		return sprintf( esc_html__( 'Copyright &copy; %1$s %2$s. Powered by %3$s and %4$s.', 'zakra' ), esc_attr( date( 'Y' ) ), $site_link, $theme_link, $wordpress_link );
 	}
 }
 

@@ -510,7 +510,7 @@ if ( ! function_exists( 'exs_filter_exs_customizer_options' ) ) :
 			'section'     => 'section_exs_woocommerce_layout',
 			'default'     => exs_option( 'shop_sidebar_position', 'right' ),
 			'label'       => esc_html__( 'Shop sidebar position', 'exs' ),
-			'description' => esc_html__( 'This option let you manage sidebar position on the shop page.', 'exs' ),
+			'description' => esc_html__( 'This option let you manage sidebar position on the shop page. Shop sidebar needs to be not empty to display.', 'exs' ),
 			'choices'     => exs_get_sidebar_position_options(),
 		);
 
@@ -519,7 +519,7 @@ if ( ! function_exists( 'exs_filter_exs_customizer_options' ) ) :
 			'section'     => 'section_exs_woocommerce_layout',
 			'default'     => exs_option( 'product_sidebar_position', 'right' ),
 			'label'       => esc_html__( 'Product sidebar position', 'exs' ),
-			'description' => esc_html__( 'This option let you manage sidebar position on product pages.', 'exs' ),
+			'description' => esc_html__( 'This option let you manage sidebar position on product pages. Shop sidebar needs to be not empty to display.', 'exs' ),
 			'choices'     => exs_get_sidebar_position_options(),
 		);
 

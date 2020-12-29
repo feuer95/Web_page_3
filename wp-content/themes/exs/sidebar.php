@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 $exs_css_classes = exs_get_layout_css_classes();
 
 if ( empty( $exs_css_classes['aside'] ) ) {
+	if( is_customize_preview() ) {
+		echo '<aside id="aside" class="d-none"></aside>';
+	}
 	return;
 }
 $exs_sidebar_sticky       = exs_option( 'main_sidebar_sticky', false );
@@ -29,8 +32,8 @@ if ( is_page_template( 'page-templates/home.php' ) || is_front_page() ) {
 	}
 }
 ?>
-<aside itemtype="https://schema.org/WPSideBar" itemscope="itemscope" class="<?php echo esc_attr( $exs_css_classes['aside'] . ' ' . $exs_font_size . ' ' . $exs_sidebar_extra_class ); ?>">
-	<div class="widgets-wrap<?php echo esc_attr( $exs_sidebar_sticky_class ); ?>">
+<aside id="aside" itemtype="https://schema.org/WPSideBar" itemscope="itemscope" class="<?php echo esc_attr( $exs_css_classes['aside'] . ' ' . $exs_font_size . ' ' . $exs_sidebar_extra_class ); ?>">
+	<div id="widgets-wrap" class="widgets-wrap<?php echo esc_attr( $exs_sidebar_sticky_class ); ?>">
 
 		<?php
 		/**
@@ -42,6 +45,9 @@ if ( is_page_template( 'page-templates/home.php' ) || is_front_page() ) {
 
 		if ( is_singular( 'download' ) ) {
 			get_template_part( 'template-parts/edd/sidebar-single-download' );
+		}
+		else if ( exs_is_events() ) {
+			dynamic_sidebar( 'sidebar-events' );
 		}
 		else if ( exs_is_wpjm() ) {
 			dynamic_sidebar( 'sidebar-wpjm' );

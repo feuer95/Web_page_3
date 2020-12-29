@@ -1286,21 +1286,23 @@ select[multiple]{ /* Move the label to the top */
 	fill: var(--colorDarkMuted);
 }
 
-.i .affix.l,
-.i .affix.l.m{
+.i .affix.l{
 	color: #fff;
 }
 
-.i .affix.l a,
-.i .affix.l.m a{
+.i .affix.l a:not([class*='button']){
 	color: #222222;
 	color: var(--colorDarkMuted);
 }
 
-.i .affix.l a:hover,
-.i .affix.l.m a:hover{
+.i .affix.l a:not([class*='button']):hover{
 	color: #a17de8;
 	color: var(--colorMain);
+}
+
+.i .affix.l [type="search"]{
+	border-color: var(--colorBorder);
+	color: var(--colorDarkMuted);
 }
 
 .i .section-hr{
@@ -1520,6 +1522,14 @@ select[multiple]{ /* Move the label to the top */
 .container-1400 .main .container,
 .container-1400 .title .container{
 	max-width: 1400px;
+}
+
+@media (max-width: 1430px) {
+	.container-1400 .main .container,
+	.container-1400 .title .container{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
 }
 
 .container-1140 .main .container,
@@ -2501,6 +2511,7 @@ li .post-date.icon-inline svg{
 /* Header */
 .topline{
 	position: relative;
+	z-index: 1;
 }
 
 .header-absolute-wrap .topline{
@@ -3048,6 +3059,7 @@ a.header-button{
 	max-width: 1140px;
 }
 
+.customize-partial-edit-shortcut + .section-hr,
 .section-hr:first-child{
 	bottom: auto;
 	top: 0;

@@ -64,6 +64,7 @@ function zakra_migrations() {
 				'font-family' => '-apple-system, blinkmacsystemfont, segoe ui, roboto, oxygen-sans, ubuntu, cantarell, helvetica neue, helvetica, arial, sans-serif',
 				'variant'     => '400',
 				'line-height' => '1.3',
+				'color'       => '#16181a',
 			)
 		)
 	);

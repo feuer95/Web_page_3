@@ -5,205 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once EXS_THEME_PATH . '/inc/customizer/class-exs-block-extra-button-control.php';
 require_once EXS_THEME_PATH . '/inc/customizer/class-exs-block-heading-control.php';
+require_once EXS_THEME_PATH . '/inc/customizer/class-exs-slider-control.php';
 require_once EXS_THEME_PATH . '/inc/customizer/class-exs-dropdown-category-control.php';
 require_once EXS_THEME_PATH . '/inc/customizer/class-exs-hidden-customize-control.php';
 require_once EXS_THEME_PATH . '/inc/customizer/class-exs-customizer.php';
+require_once EXS_THEME_PATH . '/inc/customizer/customizer-woocommerce.php';
+require_once EXS_THEME_PATH . '/inc/customizer/customizer-helpers.php';
 
-
-add_action( 'customize_register', 'exs_customize_register', 999 );
-if ( ! function_exists( 'exs_customize_register' ) ) :
-	function exs_customize_register( $wp_customize ) {
-		//colors will be processed via JS
-		// colorLight
-		// colorFont
-		// colorFontMuted
-		// colorBackground
-		// colorBorder
-		// colorDark
-		// colorDarkMuted
-		// colorMain
-		// colorMain2
-		$wp_customize->get_setting( 'colorLight' )->transport      = 'postMessage';
-		$wp_customize->get_setting( 'colorFont' )->transport       = 'postMessage';
-		$wp_customize->get_setting( 'colorFontMuted' )->transport  = 'postMessage';
-		$wp_customize->get_setting( 'colorBackground' )->transport = 'postMessage';
-		$wp_customize->get_setting( 'colorBorder' )->transport     = 'postMessage';
-		$wp_customize->get_setting( 'colorDark' )->transport       = 'postMessage';
-		$wp_customize->get_setting( 'colorDarkMuted' )->transport  = 'postMessage';
-		$wp_customize->get_setting( 'colorMain' )->transport       = 'postMessage';
-		$wp_customize->get_setting( 'colorMain2' )->transport      = 'postMessage';
-
-		//buttons
-		$wp_customize->get_setting( 'buttons_uppercase' )->transport = 'postMessage';
-		$wp_customize->get_setting( 'buttons_bold' )->transport      = 'postMessage';
-		$wp_customize->get_setting( 'buttons_colormain' )->transport = 'postMessage';
-		$wp_customize->get_setting( 'buttons_outline' )->transport   = 'postMessage';
-		$wp_customize->get_setting( 'buttons_radius' )->transport    = 'postMessage';
-		$wp_customize->get_setting( 'buttons_fs' )->transport        = 'postMessage';
-
-		//color meta icons
-		$wp_customize->get_setting( 'color_meta_icons' )->transport = 'postMessage';
-	}
-endif;
-
-//cutsomizer typical backgrounds array
-if ( ! function_exists( 'exs_customizer_backgrounds_array' ) ) :
-	function exs_customizer_backgrounds_array( $unset_empty = false ) {
-
-		$bg = array(
-			''                        => esc_html__( 'Transparent', 'exs' ),
-			'l'                       => esc_html__( 'Light', 'exs' ),
-			'l m'                     => esc_html__( 'Grey', 'exs' ),
-			'i'                       => esc_html__( 'Dark', 'exs' ),
-			'i m'                     => esc_html__( 'Darker', 'exs' ),
-			'i c'                     => esc_html__( 'Accent color', 'exs' ),
-			'i c c2'                  => esc_html__( 'Accent secondary color', 'exs' ),
-			'i c gradient'            => esc_html__( 'Vertical gradient', 'exs' ),
-			'i c gradient horizontal' => esc_html__( 'Horizontal gradient', 'exs' ),
-			'i c gradient diagonal'   => esc_html__( 'Diagonal gradient', 'exs' ),
-		);
-
-		if ( ! empty( $unset_empty ) ) {
-			unset( $bg[''] );
-		}
-
-		return $bg;
-
-	}
-endif;
-
-//cutsomizer typical borders array
-if ( ! function_exists( 'exs_customizer_borders_array' ) ) :
-	function exs_customizer_borders_array() {
-
-		return array(
-			''          => esc_html__( 'None', 'exs' ),
-			'container' => esc_html__( 'Container width', 'exs' ),
-			'full'      => esc_html__( 'Full width', 'exs' ),
-		);
-
-	}
-endif;
-
-//cutsomizer typical font sizes array
-if ( ! function_exists( 'exs_customizer_font_size_array' ) ) :
-	function exs_customizer_font_size_array() {
-		// see _variables.scss
-		//9 10 11 12 13 14 15 16 17 18 19 20 21 22
-		return array(
-			''      => esc_html__( 'Inherit', 'exs' ),
-			'fs-9'  => esc_html__( '9px', 'exs' ),
-			'fs-10' => esc_html__( '10px', 'exs' ),
-			'fs-11' => esc_html__( '11px', 'exs' ),
-			'fs-12' => esc_html__( '12px', 'exs' ),
-			'fs-13' => esc_html__( '13px', 'exs' ),
-			'fs-14' => esc_html__( '14px', 'exs' ),
-			'fs-15' => esc_html__( '15px', 'exs' ),
-			'fs-16' => esc_html__( '16px', 'exs' ),
-			'fs-17' => esc_html__( '17px', 'exs' ),
-			'fs-18' => esc_html__( '18px', 'exs' ),
-			'fs-19' => esc_html__( '19px', 'exs' ),
-			'fs-20' => esc_html__( '20px', 'exs' ),
-			'fs-21' => esc_html__( '21px', 'exs' ),
-			'fs-22' => esc_html__( '22px', 'exs' ),
-		);
-
-	}
-endif;
-
-//cutsomizer typical background overlay array
-if ( ! function_exists( 'exs_customizer_background_overlay_array' ) ) :
-	function exs_customizer_background_overlay_array() {
-
-		return array(
-			''              => esc_html__( 'None', 'exs' ),
-			'overlay-dark'  => esc_html__( 'Dark', 'exs' ),
-			'overlay-light' => esc_html__( 'Light', 'exs' ),
-		);
-
-	}
-endif;
-
-//cutsomizer featured teasers options
-if ( ! function_exists( 'exs_intro_teasers_options' ) ) :
-	function exs_intro_teasers_options() {
-		$array = array();
-		for ( $i = 1; $i < 5; $i ++ ) {
-			/*
-			repeatable options:
-				intro_teaser_image_
-				intro_teaser_title_
-				intro_teaser_text_
-				intro_teaser_link_
-				intro_teaser_button_text_
-			*/
-			$array[ 'intro_teaser_image_' . $i ]       = array(
-				'type'    => 'image',
-				'section' => 'static_front_page',
-				'label'   => esc_html__( 'Featured block image #', 'exs' ) . $i,
-				'default' => esc_html( exs_option( 'intro_teaser_image_' . $i, '' ) ),
-				'visible' => array(
-					'key'   => 'intro_teaser_section_layout',
-					'value' => true,
-				),
-			);
-			$array[ 'intro_teaser_title_' . $i ]       = array(
-				'type'    => 'text',
-				'section' => 'static_front_page',
-				'label'   => esc_html__( 'Featured block title #', 'exs' ) . $i,
-				'default' => esc_html( exs_option( 'intro_teaser_title_' . $i, '' ) ),
-				'visible' => array(
-					'key'   => 'intro_teaser_section_layout',
-					'value' => true,
-				),
-			);
-			$array[ 'intro_teaser_text_' . $i ]        = array(
-				'type'    => 'textarea',
-				'section' => 'static_front_page',
-				'label'   => esc_html__( 'Featured block text #', 'exs' ) . $i,
-				'default' => esc_html( exs_option( 'intro_teaser_text_' . $i, '' ) ),
-				'visible' => array(
-					'key'   => 'intro_teaser_section_layout',
-					'value' => true,
-				),
-			);
-			$array[ 'intro_teaser_link_' . $i ]        = array(
-				'type'    => 'url',
-				'section' => 'static_front_page',
-				'label'   => esc_html__( 'Featured block link #', 'exs' ) . $i,
-				'default' => esc_html( exs_option( 'intro_teaser_link_' . $i, '' ) ),
-				'visible' => array(
-					'key'   => 'intro_teaser_section_layout',
-					'value' => true,
-				),
-			);
-			$array[ 'intro_teaser_button_text_' . $i ] = array(
-				'type'    => 'text',
-				'section' => 'static_front_page',
-				'label'   => esc_html__( 'Featured block button text #', 'exs' ) . $i,
-				'default' => esc_html( exs_option( 'intro_teaser_button_text_' . $i, '' ) ),
-				'visible' => array(
-					'key'   => 'intro_teaser_section_layout',
-					'value' => true,
-				),
-			);
-		}
-
-		return $array;
-	}
-endif;
-
-//merge homepage featured boxes with main array
-if ( ! function_exists( 'exs_add_homepage_intro_teasers_to_customizer_settings_array' ) ) :
-	function exs_add_homepage_intro_teasers_to_customizer_settings_array( $customizer_settings ) {
-		$teasers_options = exs_intro_teasers_options();
-
-		return array_merge( $customizer_settings, $teasers_options );
-	}
-endif;
-add_filter( 'exs_customizer_options', 'exs_add_homepage_intro_teasers_to_customizer_settings_array' );
-
-//cutsomizer theme settings
+//customizer theme settings
 if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 	function exs_customizer_settings_array() {
 		return apply_filters(
@@ -333,6 +142,13 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'panel'       => 'panel_theme',
 					'label'       => esc_html__( 'Search Results', 'exs' ),
 					'description' => esc_html__( 'Search results display options', 'exs' ),
+					'priority'    => 100,
+				),
+				'section_typography'                    => array(
+					'type'        => 'section',
+					'panel'       => 'panel_theme',
+					'label'       => esc_html__( 'Typography', 'exs' ),
+					'description' => esc_html__( 'Set global typography settings', 'exs' ),
 					'priority'    => 100,
 				),
 				'section_fonts'                         => array(
@@ -536,20 +352,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'image-top'    => esc_html__( 'Top image', 'exs' ),
 						'image-bottom' => esc_html__( 'Bottom image', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_fullscreen'                      => array(
 					'type'    => 'checkbox',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Full Screen Intro Height', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_fullscreen', false ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_background'                      => array(
 					'type'    => 'select',
@@ -557,20 +365,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Intro Section Background', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_background', '' ) ),
 					'choices' => exs_customizer_backgrounds_array(),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_background_image'                => array(
 					'type'    => 'image',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Section Image', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_background_image', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_image_animation'                 => array(
 					'type'        => 'select',
@@ -579,30 +379,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_image_animation', '' ) ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_background_image_cover'          => array(
 					'type'    => 'checkbox',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Cover background image', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_background_image_cover', false ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_background_image_fixed'          => array(
 					'type'    => 'checkbox',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Fixed background image', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_background_image_fixed', false ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_background_image_overlay'        => array(
 					'type'    => 'select',
@@ -610,20 +398,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Overlay for background image', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_background_image_overlay', '' ) ),
 					'choices' => exs_customizer_background_overlay_array(),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_heading'                         => array(
 					'type'    => 'text',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Section Heading text', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_heading', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_heading_mt'                      => array(
 					'type'    => 'select',
@@ -640,10 +420,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
 					),
 				),
 				'intro_heading_mb'                      => array(
@@ -662,10 +438,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_heading_animation'               => array(
 					'type'        => 'select',
@@ -674,20 +446,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_heading_animation', '' ) ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_description'                     => array(
 					'type'    => 'textarea',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Section description text', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_description', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_description_mt'                  => array(
 					'type'    => 'select',
@@ -704,10 +468,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
 					),
 				),
 				'intro_description_mb'                  => array(
@@ -726,10 +486,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_description_animation'           => array(
 					'type'        => 'select',
@@ -738,30 +494,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_description_animation', '' ) ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_button_text_first'               => array(
 					'type'    => 'text',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Primary Action Button Text', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_button_text_first', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_button_url_first'                => array(
 					'type'    => 'url',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Primary Action Button URL', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_button_url_first', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_button_first_animation'          => array(
 					'type'        => 'select',
@@ -770,30 +514,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_button_first_animation', '' ) ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_button_text_second'              => array(
 					'type'    => 'text',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Secondary Action Button Text', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_button_text_second', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_button_url_second'               => array(
 					'type'    => 'url',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Secondary Action Button URL', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_button_url_second', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_button_second_animation'         => array(
 					'type'        => 'select',
@@ -802,10 +534,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_button_second_animation', '' ) ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_buttons_mt'                      => array(
 					'type'    => 'select',
@@ -822,10 +550,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
 					),
 				),
 				'intro_buttons_mb'                      => array(
@@ -844,10 +568,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_shortcode'                       => array(
 					'type'        => 'text',
@@ -855,10 +575,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Intro Section Shortcode', 'exs' ),
 					'description' => esc_html__( 'You can put shortcode here. It will appear below Intro description', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_shortcode', '' ) ),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_shortcode_mt'                    => array(
 					'type'    => 'select',
@@ -875,10 +591,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
 					),
 				),
 				'intro_shortcode_mb'                    => array(
@@ -897,10 +609,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_shortcode_animation'             => array(
 					'type'        => 'select',
@@ -909,10 +617,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => esc_html( exs_option( 'intro_shortcode_animation', '' ) ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_alignment'                       => array(
 					'type'    => 'select',
@@ -923,10 +627,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'text-left'   => esc_html__( 'Left', 'exs' ),
 						'text-center' => esc_html__( 'Centered', 'exs' ),
 						'text-right'  => esc_html__( 'Right', 'exs' ),
-					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
 					),
 				),
 				'intro_extra_padding_top'               => array(
@@ -948,10 +648,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pt-9'  => esc_html__( '9em', 'exs' ),
 						'pt-10' => esc_html__( '10em', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_extra_padding_bottom'            => array(
 					'type'    => 'select',
@@ -972,20 +668,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pb-9'  => esc_html__( '9em', 'exs' ),
 						'pb-10' => esc_html__( '10em', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_show_search'                     => array(
 					'type'    => 'checkbox',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Show search form', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_show_search', false ) ),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				'intro_font_size'                       => array(
 					'type'    => 'select',
@@ -993,10 +681,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Intro section font size', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible' => array(
-						'key'   => 'intro_position',
-						'value' => true,
-					),
 				),
 				/////////////////
 				//intro teasers//
@@ -1026,10 +710,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Intro Teasers Section Background', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_teaser_section_background', '' ) ),
 					'choices' => exs_customizer_backgrounds_array(),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
-					),
 				),
 				'intro_teaser_section_padding_top'      => array(
 					'type'    => 'select',
@@ -1043,10 +723,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pt-3' => esc_html__( '3em', 'exs' ),
 						'pt-4' => esc_html__( '4em', 'exs' ),
 						'pt-5' => esc_html__( '5em', 'exs' ),
-					),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
 					),
 				),
 				'intro_teaser_section_padding_bottom'   => array(
@@ -1062,10 +738,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pb-4' => esc_html__( '4em', 'exs' ),
 						'pb-5' => esc_html__( '5em', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
-					),
 				),
 				'intro_teaser_font_size'                => array(
 					'type'    => 'select',
@@ -1073,10 +745,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Intro Teasers section font size', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_teaser_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
-					),
 				),
 				'intro_teaser_layout'                   => array(
 					'type'    => 'select',
@@ -1088,30 +756,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'text-center' => esc_html__( 'Vertical Centered', 'exs' ),
 						'horizontal'  => esc_html__( 'Horizontal', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
-					),
 				),
 				'intro_teaser_heading'                  => array(
 					'type'    => 'text',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Teasers Heading text', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_teaser_heading', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
-					),
 				),
 				'intro_teaser_description'              => array(
 					'type'    => 'textarea',
 					'section' => 'static_front_page',
 					'label'   => esc_html__( 'Intro Teasers description text', 'exs' ),
 					'default' => esc_html( exs_option( 'intro_teaser_description', '' ) ),
-					'visible' => array(
-						'key'   => 'intro_teaser_section_layout',
-						'value' => true,
-					),
 				),
 				////////
 				//logo//
@@ -1317,10 +973,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_meta',
 					'label'   => esc_html__( 'Email label', 'exs' ),
 					'default' => esc_html( exs_option( 'meta_email_label', '' ) ),
-					'visible' => array(
-						'key'   => 'meta_email',
-						'value' => true,
-					),
 				),
 				'meta_phone'                            => array(
 					'type'    => 'text',
@@ -1333,10 +985,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_meta',
 					'label'   => esc_html__( 'Phone label', 'exs' ),
 					'default' => esc_html( exs_option( 'meta_phone_label', '' ) ),
-					'visible' => array(
-						'key'   => 'meta_phone',
-						'value' => true,
-					),
 				),
 				'meta_address'                          => array(
 					'type'    => 'text',
@@ -1349,10 +997,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_meta',
 					'label'   => esc_html__( 'Address label', 'exs' ),
 					'default' => esc_html( exs_option( 'meta_address_label', '' ) ),
-					'visible' => array(
-						'key'   => 'meta_address',
-						'value' => true,
-					),
 				),
 				'meta_opening_hours'                    => array(
 					'type'    => 'text',
@@ -1365,10 +1009,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_meta',
 					'label'   => esc_html__( 'Opening hours label', 'exs' ),
 					'default' => esc_html( exs_option( 'meta_opening_hours_label', '' ) ),
-					'visible' => array(
-						'key'   => 'meta_opening_hours',
-						'value' => true,
-					),
 				),
 				//social links
 				'meta_facebook'                         => array(
@@ -1464,10 +1104,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_header',
 					'label'   => esc_html__( 'Full Width Header', 'exs' ),
 					'default' => esc_html( exs_option( 'header_fluid', true ) ),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_background'                     => array(
 					'type'    => 'select',
@@ -1475,10 +1111,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Header Background', 'exs' ),
 					'default' => esc_html( exs_option( 'header_background', 'l' ) ),
 					'choices' => exs_customizer_backgrounds_array( true ),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_toplogo_background'             => array(
 					'type'        => 'select',
@@ -1487,10 +1119,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'default'     => esc_html( exs_option( 'header_toplogo_background', 'l' ) ),
 					'description' => esc_html__( 'Background for top logo section, if header layout contains it', 'exs' ),
 					'choices'     => exs_customizer_backgrounds_array( true ),
-					'visible'     => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_align_main_menu'                => array(
 					'type'    => 'select',
@@ -1502,30 +1130,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'menu-right'  => esc_html__( 'Right', 'exs' ),
 						'menu-center' => esc_html__( 'Center', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_toggler_menu_main'              => array(
 					'type'    => 'checkbox',
 					'section' => 'section_header',
 					'label'   => esc_html__( 'Put main menu mobile toggler in header', 'exs' ),
 					'default' => esc_html( exs_option( 'header_toggler_menu_main', true ) ),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_absolute'                       => array(
 					'type'    => 'checkbox',
 					'section' => 'section_header',
 					'label'   => esc_html__( 'Position absolute header', 'exs' ),
 					'default' => esc_html( exs_option( 'header_absolute', false ) ),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_transparent'                    => array(
 					'type'        => 'checkbox',
@@ -1533,10 +1149,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Remove background color', 'exs' ),
 					'description' => esc_html__( 'Make header transparent', 'exs' ),
 					'default'     => esc_html( exs_option( 'header_transparent', false ) ),
-					'visible'     => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_border_top'                     => array(
 					'type'    => 'select',
@@ -1544,10 +1156,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Top border', 'exs' ),
 					'default' => esc_html( exs_option( 'header_border_top', '' ) ),
 					'choices' => exs_customizer_borders_array(),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_border_bottom'                  => array(
 					'type'    => 'select',
@@ -1555,10 +1163,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Bottom border', 'exs' ),
 					'default' => esc_html( exs_option( 'header_border_bottom', '' ) ),
 					'choices' => exs_customizer_borders_array(),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_font_size'                      => array(
 					'type'    => 'select',
@@ -1566,10 +1170,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Header section font size', 'exs' ),
 					'default' => esc_html( exs_option( 'header_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_sticky'                         => array(
 					'type'    => 'select',
@@ -1580,10 +1180,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						''                 => esc_html__( 'Disabled', 'exs' ),
 						'always-sticky'    => esc_html__( 'Always visible', 'exs' ),
 						'scrolltop-sticky' => esc_html__( 'Visible on scrolling to top', 'exs' ),
-					),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
 					),
 				),
 				'header_search'                         => array(
@@ -1596,30 +1192,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'button' => esc_html__( 'Search Modal button', 'exs' ),
 						'form'   => esc_html__( 'Search Form', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_button_text'                    => array(
 					'type'    => 'text',
 					'section' => 'section_header',
 					'label'   => esc_html__( 'Header Action Button Text', 'exs' ),
 					'default' => esc_html( exs_option( 'header_button_text', '' ) ),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				'header_button_url'                     => array(
 					'type'    => 'url',
 					'section' => 'section_header',
 					'label'   => esc_html__( 'Header Action Button URL', 'exs' ),
 					'default' => esc_html( exs_option( 'header_button_url', '' ) ),
-					'visible' => array(
-						'key'   => 'header',
-						'value' => true,
-					),
 				),
 				//topline in header
 				//heading
@@ -1648,10 +1232,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_header',
 					'label'   => esc_html__( 'Full Width Header Topline', 'exs' ),
 					'default' => esc_html( exs_option( 'topline_fluid', true ) ),
-					'visible' => array(
-						'key'   => 'topline',
-						'value' => true,
-					),
 				),
 				'topline_background'                    => array(
 					'type'    => 'select',
@@ -1659,10 +1239,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Header Topline Background', 'exs' ),
 					'default' => esc_html( exs_option( 'topline_background', 'l' ) ),
 					'choices' => exs_customizer_backgrounds_array( true ),
-					'visible' => array(
-						'key'   => 'topline',
-						'value' => true,
-					),
 				),
 				'meta_topline_text'                     => array(
 					'type'        => 'textarea',
@@ -1670,10 +1246,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Topline custom text', 'exs' ),
 					'description' => esc_html__( 'Appears on different topline layouts', 'exs' ),
 					'default'     => esc_html( exs_option( 'meta_topline_text', '' ) ),
-					'visible'     => array(
-						'key'   => 'topline',
-						'value' => true,
-					),
 				),
 				'topline_font_size'                     => array(
 					'type'    => 'select',
@@ -1681,10 +1253,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Topline section font size', 'exs' ),
 					'default' => esc_html( exs_option( 'topline_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible' => array(
-						'key'   => 'topline',
-						'value' => true,
-					),
 				),
 				/////////
 				//title//
@@ -1805,20 +1373,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_title',
 					'label'   => esc_html__( 'Cover background image', 'exs' ),
 					'default' => esc_html( exs_option( 'title_background_image_cover', false ) ),
-					'visible' => array(
-						'key'   => 'title_background_image',
-						'value' => true,
-					),
 				),
 				'title_background_image_fixed'          => array(
 					'type'    => 'checkbox',
 					'section' => 'section_title',
 					'label'   => esc_html__( 'Fixed background image', 'exs' ),
 					'default' => esc_html( exs_option( 'title_background_image_fixed', false ) ),
-					'visible' => array(
-						'key'   => 'title_background_image',
-						'value' => true,
-					),
 				),
 				'title_background_image_overlay'        => array(
 					'type'    => 'select',
@@ -1826,10 +1386,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Overlay for background image', 'exs' ),
 					'default' => esc_html( exs_option( 'title_background_image_overlay', '' ) ),
 					'choices' => exs_customizer_background_overlay_array(),
-					'visible' => array(
-						'key'   => 'title_background_image',
-						'value' => true,
-					),
 				),
 				////////////////
 				//main section//
@@ -1938,20 +1494,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section'     => 'section_footer_top',
 					'label'       => esc_html__( 'Top Footer Section Content', 'exs' ),
 					'description' => esc_html__( 'Set top footer section content. Leave blank if some options not needed.', 'exs' ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
+				),
+				'footer_top_image'                               => array(
+					'type'        => 'image',
+					'section'     => 'section_footer_top',
+					'label'       => esc_html__( 'Top Footer Section Image', 'exs' ),
+					'description' => esc_html__( 'Set top footer section image. Useful if you want to display another logo', 'exs' ),
 				),
 				'footer_top_pre_heading'                         => array(
 					'type'    => 'text',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Pre Heading text', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_pre_heading', '' ) ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_pre_heading_mt'                      => array(
 					'type'    => 'select',
@@ -1968,10 +1522,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
 					),
 				),
 				'footer_top_pre_heading_mb'                      => array(
@@ -1990,10 +1540,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_pre_heading_animation'               => array(
 					'type'        => 'select',
@@ -2002,20 +1548,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => exs_option( 'footer_top_pre_heading_animation', '' ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_heading'                         => array(
 					'type'    => 'text',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Heading text', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_heading', '' ) ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_heading_mt'                      => array(
 					'type'    => 'select',
@@ -2032,10 +1570,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
 					),
 				),
 				'footer_top_heading_mb'                      => array(
@@ -2054,10 +1588,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_heading_animation'               => array(
 					'type'        => 'select',
@@ -2066,20 +1596,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => exs_option( 'footer_top_heading_animation', '' ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_description'                     => array(
 					'type'    => 'textarea',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Description text', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_description', '' ) ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_description_mt'                  => array(
 					'type'    => 'select',
@@ -2096,10 +1618,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
 					),
 				),
 				'footer_top_description_mb'                  => array(
@@ -2118,10 +1636,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_description_animation'           => array(
 					'type'        => 'select',
@@ -2130,10 +1644,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => exs_option( 'footer_top_description_animation', '' ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_shortcode'                       => array(
 					'type'        => 'text',
@@ -2141,10 +1651,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Shortcode', 'exs' ),
 					'description' => esc_html__( 'You can put shortcode here. It will appear below description', 'exs' ),
 					'default'     => exs_option( 'footer_top_shortcode', '' ),
-					'visible'     => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_shortcode_mt'                    => array(
 					'type'    => 'select',
@@ -2161,10 +1667,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mt-3'  => '3em',
 						'mt-4'  => '4em',
 						'mt-5'  => '5em',
-					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
 					),
 				),
 				'footer_top_shortcode_mb'                    => array(
@@ -2183,10 +1685,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-4'  => '4em',
 						'mb-5'  => '5em',
 					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_shortcode_animation'             => array(
 					'type'        => 'select',
@@ -2195,30 +1693,18 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'description' => esc_html__( 'Animation should be enabled', 'exs' ),
 					'default'     => exs_option( 'footer_top_shortcode_animation', '' ),
 					'choices'     => exs_get_animation_options(),
-					'visible'     => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_options_heading_text'                   => array(
 					'type'        => 'block-heading',
 					'section'     => 'section_footer_top',
 					'label'       => esc_html__( 'Top Footer Section Options', 'exs' ),
 					'description' => esc_html__( 'Set top footer section display and layout options.', 'exs' ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_fluid'                          => array(
 					'type'    => 'checkbox',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Full Width Section', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_fluid', false ) ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_background'                     => array(
 					'type'    => 'select',
@@ -2226,10 +1712,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Background', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_background', '' ) ),
 					'choices' => exs_customizer_backgrounds_array(),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_border_top'                     => array(
 					'type'    => 'select',
@@ -2237,10 +1719,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Top border', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_border_top', '' ) ),
 					'choices' => exs_customizer_borders_array(),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_border_bottom'                  => array(
 					'type'    => 'select',
@@ -2248,10 +1726,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Bottom border', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_border_bottom', '' ) ),
 					'choices' => exs_customizer_borders_array(),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_extra_padding_top'              => array(
 					'type'    => 'select',
@@ -2271,10 +1745,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pt-8'  => esc_html__( '8em', 'exs' ),
 						'pt-9'  => esc_html__( '9em', 'exs' ),
 						'pt-10' => esc_html__( '10em', 'exs' ),
-					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
 					),
 				),
 				'footer_top_extra_padding_bottom'           => array(
@@ -2296,10 +1766,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pb-9'  => esc_html__( '9em', 'exs' ),
 						'pb-10' => esc_html__( '10em', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_font_size'                      => array(
 					'type'    => 'select',
@@ -2307,40 +1773,24 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Font Size', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible'     => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_background_image'               => array(
 					'type'    => 'image',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Background Image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_background_image', '' ) ),
-					'visible' => array(
-						'key'   => 'footer_top',
-						'value' => true,
-					),
 				),
 				'footer_top_background_image_cover'         => array(
 					'type'    => 'checkbox',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Cover background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_background_image_cover', false ) ),
-					'visible' => array(
-						'key'   => 'footer_top_background_image',
-						'value' => true,
-					),
 				),
 				'footer_top_background_image_fixed'         => array(
 					'type'    => 'checkbox',
 					'section' => 'section_footer_top',
 					'label'   => esc_html__( 'Fixed background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_background_image_fixed', false ) ),
-					'visible' => array(
-						'key'   => 'footer_top_background_image',
-						'value' => true,
-					),
 				),
 				'footer_top_background_image_overlay'       => array(
 					'type'    => 'select',
@@ -2348,10 +1798,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Overlay for background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_top_background_image_overlay', '' ) ),
 					'choices' => exs_customizer_background_overlay_array(),
-					'visible' => array(
-						'key'   => 'footer_top_background_image',
-						'value' => true,
-					),
 				),
 
 				//////////
@@ -2386,10 +1832,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_footer',
 					'label'   => esc_html__( 'Full Width Footer', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_fluid', false ) ),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_background'                     => array(
 					'type'    => 'select',
@@ -2397,10 +1839,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Footer Background', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_background', '' ) ),
 					'choices' => exs_customizer_backgrounds_array(),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_border_top'                     => array(
 					'type'    => 'select',
@@ -2408,10 +1846,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Top border', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_border_top', '' ) ),
 					'choices' => exs_customizer_borders_array(),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_border_bottom'                  => array(
 					'type'    => 'select',
@@ -2419,10 +1853,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Bottom border', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_border_bottom', '' ) ),
 					'choices' => exs_customizer_borders_array(),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_extra_padding_top'              => array(
 					'type'    => 'select',
@@ -2442,10 +1872,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pt-8'  => esc_html__( '8em', 'exs' ),
 						'pt-9'  => esc_html__( '9em', 'exs' ),
 						'pt-10' => esc_html__( '10em', 'exs' ),
-					),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
 					),
 				),
 				'footer_extra_padding_bottom'           => array(
@@ -2467,10 +1893,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pb-9'  => esc_html__( '9em', 'exs' ),
 						'pb-10' => esc_html__( '10em', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_font_size'                      => array(
 					'type'    => 'select',
@@ -2478,40 +1900,24 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Footer section font size', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_background_image'               => array(
 					'type'    => 'image',
 					'section' => 'section_footer',
 					'label'   => esc_html__( 'Footer Section Background Image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_background_image', '' ) ),
-					'visible' => array(
-						'key'   => 'footer',
-						'value' => true,
-					),
 				),
 				'footer_background_image_cover'         => array(
 					'type'    => 'checkbox',
 					'section' => 'section_footer',
 					'label'   => esc_html__( 'Cover background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_background_image_cover', false ) ),
-					'visible' => array(
-						'key'   => 'footer_background_image',
-						'value' => true,
-					),
 				),
 				'footer_background_image_fixed'         => array(
 					'type'    => 'checkbox',
 					'section' => 'section_footer',
 					'label'   => esc_html__( 'Fixed background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_background_image_fixed', false ) ),
-					'visible' => array(
-						'key'   => 'footer_background_image',
-						'value' => true,
-					),
 				),
 				'footer_background_image_overlay'       => array(
 					'type'    => 'select',
@@ -2519,10 +1925,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Overlay for background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_background_image_overlay', '' ) ),
 					'choices' => exs_customizer_background_overlay_array(),
-					'visible' => array(
-						'key'   => 'footer_background_image',
-						'value' => true,
-					),
 				),
 				/////////////
 				//copyright//
@@ -2547,20 +1949,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Copyright text', 'exs' ),
 					'description' => esc_html__( 'Site name will be displayed, if leave empty', 'exs' ),
 					'default'     => esc_html( exs_option( 'copyright_text', '' ) ),
-					'visible'     => array(
-						'key'   => 'copyright',
-						'value' => true,
-					),
 				),
 				'copyright_fluid'                       => array(
 					'type'    => 'checkbox',
 					'section' => 'section_copyright',
 					'label'   => esc_html__( 'Full Width copyright', 'exs' ),
 					'default' => esc_html( exs_option( 'copyright_fluid', true ) ),
-					'visible' => array(
-						'key'   => 'copyright',
-						'value' => true,
-					),
 				),
 				'copyright_background'                  => array(
 					'type'    => 'select',
@@ -2568,10 +1962,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Copyright Background', 'exs' ),
 					'default' => esc_html( exs_option( 'copyright_background', '' ) ),
 					'choices' => exs_customizer_backgrounds_array(),
-					'visible' => array(
-						'key'   => 'copyright',
-						'value' => true,
-					),
 				),
 				'copyright_extra_padding_top'           => array(
 					'type'    => 'select',
@@ -2591,10 +1981,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pt-8'  => esc_html__( '8em', 'exs' ),
 						'pt-9'  => esc_html__( '9em', 'exs' ),
 						'pt-10' => esc_html__( '10em', 'exs' ),
-					),
-					'visible' => array(
-						'key'   => 'copyright',
-						'value' => true,
 					),
 				),
 				'copyright_extra_padding_bottom'        => array(
@@ -2616,10 +2002,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'pb-9'  => esc_html__( '9em', 'exs' ),
 						'pb-10' => esc_html__( '10em', 'exs' ),
 					),
-					'visible' => array(
-						'key'   => 'copyright',
-						'value' => true,
-					),
 				),
 				'copyright_font_size'                   => array(
 					'type'    => 'select',
@@ -2627,40 +2009,24 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Copyright section font size', 'exs' ),
 					'default' => esc_html( exs_option( 'copyright_font_size', '' ) ),
 					'choices' => exs_customizer_font_size_array(),
-					'visible' => array(
-						'key'   => 'copyright',
-						'value' => true,
-					),
 				),
 				'copyright_background_image'            => array(
 					'type'    => 'image',
 					'section' => 'section_copyright',
 					'label'   => esc_html__( 'Copyright Section Background Image', 'exs' ),
 					'default' => esc_html( exs_option( 'copyright_background_image', '' ) ),
-					'visible' => array(
-						'key'   => 'copyright',
-						'value' => true,
-					),
 				),
 				'copyright_background_image_cover'      => array(
 					'type'    => 'checkbox',
 					'section' => 'section_copyright',
 					'label'   => esc_html__( 'Cover background image', 'exs' ),
 					'default' => esc_html( exs_option( 'copyright_background_image_cover', false ) ),
-					'visible' => array(
-						'key'   => 'copyright_background_image',
-						'value' => true,
-					),
 				),
 				'copyright_background_image_fixed'      => array(
 					'type'    => 'checkbox',
 					'section' => 'section_copyright',
 					'label'   => esc_html__( 'Fixed background image', 'exs' ),
 					'default' => esc_html( exs_option( 'copyright_background_image_fixed', false ) ),
-					'visible' => array(
-						'key'   => 'copyright_background_image',
-						'value' => true,
-					),
 				),
 				'copyright_background_image_overlay'    => array(
 					'type'    => 'select',
@@ -2668,9 +2034,78 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'   => esc_html__( 'Overlay for background image', 'exs' ),
 					'default' => esc_html( exs_option( 'footer_background_image_overlay', '' ) ),
 					'choices' => exs_customizer_background_overlay_array(),
-					'visible' => array(
-						'key'   => 'copyright_background_image',
-						'value' => true,
+				),
+				//////////////
+				//typography//
+				//////////////
+				'typo_body_heading'      => array(
+					'type'        => 'block-heading',
+					'section'     => 'section_typography',
+					'label'       => esc_html__( 'Settings for BODY', 'exs' ),
+					'description' => esc_html__( 'Set your settings for BODY tag. Leave blank for theme defaults.', 'exs' ),
+				),
+				'typo_body_size'                       => array(
+					'type'        => 'slider',
+					'label'       => esc_html__( 'Global Font Size (px)', 'exs' ),
+					'description' => esc_html__( 'Set a global font size in pixels. It will be applied to BODY tag. Can be overriden in the individual sections settings', 'exs' ),
+					'default'     => esc_html( exs_option( 'typo_body_size', '' ) ),
+					'section'     => 'section_typography',
+					'atts'        => array(
+						'min'         => '9',
+						'max'         => '22',
+						'step'        => '1',
+					),
+				),
+				'typo_body_weight'                       => array(
+					'type'        => 'select',
+					'label'       => esc_html__( 'Global Font Weight', 'exs' ),
+					'description' => esc_html__( 'Set a global font weight. It will be applied to BODY tag.', 'exs' ),
+					'default'     => esc_html( exs_option( 'typo_body_weight', '' ) ),
+					'section'     => 'section_typography',
+					'choices'     => array(
+						''    => esc_html__( 'Default', 'exs' ),
+						'100' => esc_html__( '100', 'exs' ),
+						'300' => esc_html__( '300', 'exs' ),
+						'400' => esc_html__( '400', 'exs' ),
+						'500' => esc_html__( '500', 'exs' ),
+						'700' => esc_html__( '700', 'exs' ),
+						'900' => esc_html__( '900', 'exs' ),
+					),
+				),
+				'typo_body_line_height'                       => array(
+					'type'        => 'slider',
+					'label'       => esc_html__( 'Global Line Height (em)', 'exs' ),
+					'description' => esc_html__( 'It will be applied to BODY tag. Value in ems', 'exs' ),
+					'section'     => 'section_typography',
+					'default'     => esc_html( exs_option( 'typo_body_line_height', '' ) ),
+					'atts'        => array(
+						'min'         => '0.8',
+						'max'         => '3',
+						'step'        => '0.01',
+					),
+				),
+				'typo_body_letter_spacing'                    => array(
+					'type'        => 'slider',
+					'label'       => esc_html__( 'Global Letter Spacing (em)', 'exs' ),
+					'description' => esc_html__( 'It will be applied to BODY tag. Value in ems', 'exs' ),
+					'section'     => 'section_typography',
+					'default'     => esc_html( exs_option( 'typo_body_letter_spacing', '' ) ),
+					'atts'        => array(
+						'min'         => '-0.2',
+						'max'         => '0.5',
+						'step'        => '0.005',
+					),
+				),
+				'typo_p_margin_bottom'                        => array(
+					'type'        => 'slider',
+					'label'       => esc_html__( 'Paragraphs Bottom Margin (em)', 'exs' ),
+					'description' => esc_html__( 'It will be applied to P tag. Value in ems', 'exs' ),
+					'section'     => 'section_typography',
+					'default'     => esc_html( exs_option( 'typo_p_margin_bottom', '' ) ),
+					'atts'        => array(
+						'min'         => '0',
+						'max'         => '3',
+						'step'        => '0.05',
 					),
 				),
 				/////////
@@ -2726,10 +2161,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Custom excerpt length', 'exs' ),
 					'description' => esc_html__( 'Words amount', 'exs' ),
 					'default'     => esc_html( exs_option( 'blog_excerpt_length', '' ) ),
-					'visible'     => array(
-						'key'   => 'blog_show_full_text',
-						'value' => false,
-					),
 				),
 				'blog_read_more_text'                   => array(
 					'type'    => 'text',
@@ -2767,20 +2198,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog',
 					'label'   => esc_html__( 'Show author avatar', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_show_author_avatar', false ) ),
-					'visible' => array(
-						'key'   => 'blog_show_author',
-						'value' => true,
-					),
 				),
 				'blog_before_author_word'               => array(
 					'type'    => 'text',
 					'section' => 'section_blog',
 					'label'   => esc_html__( 'Text before author', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_before_author_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_show_author',
-						'value' => true,
-					),
 				),
 				'blog_show_date'                        => array(
 					'type'    => 'checkbox',
@@ -2793,20 +2216,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog',
 					'label'   => esc_html__( 'Text before date', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_before_date_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_show_date',
-						'value' => true,
-					),
 				),
 				'blog_show_human_date'                        => array(
 					'type'    => 'checkbox',
 					'section' => 'section_blog',
 					'label'   => esc_html__( 'Show human difference date', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_show_human_date', false ) ),
-					'visible' => array(
-						'key'   => 'blog_show_date',
-						'value' => true,
-					),
 				),
 				'blog_show_categories'                  => array(
 					'type'    => 'checkbox',
@@ -2819,10 +2234,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog',
 					'label'   => esc_html__( 'Text before categories', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_before_categories_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_show_categories',
-						'value' => true,
-					),
 				),
 				'blog_show_tags'                        => array(
 					'type'    => 'checkbox',
@@ -2835,10 +2246,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog',
 					'label'   => esc_html__( 'Text before tags', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_before_tags_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_show_tags',
-						'value' => true,
-					),
 				),
 				'blog_show_comments_link'               => array(
 					'type'    => 'select',
@@ -2895,10 +2302,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( '\'About author\' intro word', 'exs' ),
 					'description' => esc_html__( 'Leave blank if not needed', 'exs' ),
 					'default'     => esc_html( exs_option( 'blog_single_author_bio_about_word', '' ) ),
-					'visible'     => array(
-						'key'   => 'blog_single_show_author_bio',
-						'value' => true,
-					),
 				),
 				'blog_single_post_nav_heading'          => array(
 					'type'    => 'block-heading',
@@ -2923,10 +2326,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( '\'Previous post\' word', 'exs' ),
 					'description' => esc_html__( 'Post navigation has to be chosen', 'exs' ),
 					'default'     => esc_html( exs_option( 'blog_single_post_nav_word_prev', esc_html__( 'Prev', 'exs' ) ) ),
-					'visible'     => array(
-						'key'   => 'blog_single_post_nav',
-						'value' => true,
-					),
 				),
 				'blog_single_post_nav_word_next'        => array(
 					'type'        => 'text',
@@ -2934,10 +2333,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( '\'Next post\' word', 'exs' ),
 					'description' => esc_html__( 'Post navigation has to be chosen', 'exs' ),
 					'default'     => esc_html( exs_option( 'blog_single_post_nav_word_next', esc_html__( 'Next', 'exs' ) ) ),
-					'visible'     => array(
-						'key'   => 'blog_single_post_nav',
-						'value' => true,
-					),
 				),
 				'blog_single_related_posts_heading'     => array(
 					'type'        => 'block-heading',
@@ -2963,10 +2358,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Related posts title', 'exs' ),
 					'default'     => esc_html( exs_option( 'blog_single_related_posts_title', '' ) ),
 					'description' => esc_html__( 'Related posts heading title', 'exs' ),
-					'visible'     => array(
-						'key'   => 'blog_single_related_posts',
-						'value' => true,
-					),
 				),
 				'blog_single_related_posts_number'      => array(
 					'type'        => 'number',
@@ -2974,10 +2365,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Related posts number', 'exs' ),
 					'default'     => esc_html( exs_option( 'blog_single_related_posts_number', '' ) ),
 					'description' => esc_html__( 'Related posts layout has to be chosen', 'exs' ),
-					'visible'     => array(
-						'key'   => 'blog_single_related_posts',
-						'value' => true,
-					),
 				),
 				'blog_single_meta_options_heading'      => array(
 					'type'        => 'block-heading',
@@ -3002,20 +2389,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog_post',
 					'label'   => esc_html__( 'Show author avatar', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_single_show_author_avatar', false ) ),
-					'visible' => array(
-						'key'   => 'blog_single_show_author',
-						'value' => true,
-					),
 				),
 				'blog_single_before_author_word'        => array(
 					'type'    => 'text',
 					'section' => 'section_blog_post',
 					'label'   => esc_html__( 'Text before author', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_single_before_author_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_single_show_author',
-						'value' => true,
-					),
 				),
 				'blog_single_show_date'                 => array(
 					'type'    => 'checkbox',
@@ -3028,20 +2407,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog_post',
 					'label'   => esc_html__( 'Text before date', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_single_before_date_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_single_show_date',
-						'value' => true,
-					),
 				),
 				'blog_single_show_human_date'                        => array(
 					'type'    => 'checkbox',
 					'section' => 'section_blog_post',
 					'label'   => esc_html__( 'Show human difference date', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_single_show_human_date', false ) ),
-					'visible' => array(
-						'key'   => 'blog_single_show_date',
-						'value' => true,
-					),
 				),
 				'blog_single_show_categories'           => array(
 					'type'    => 'checkbox',
@@ -3054,10 +2425,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog_post',
 					'label'   => esc_html__( 'Text before categories', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_single_before_categories_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_single_show_categories',
-						'value' => true,
-					),
 				),
 				'blog_single_show_tags'                 => array(
 					'type'    => 'checkbox',
@@ -3070,10 +2437,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_blog_post',
 					'label'   => esc_html__( 'Text before tags', 'exs' ),
 					'default' => esc_html( exs_option( 'blog_single_before_tags_word', '' ) ),
-					'visible' => array(
-						'key'   => 'blog_single_show_tags',
-						'value' => true,
-					),
 				),
 				'blog_single_show_comments_link'        => array(
 					'type'    => 'select',
@@ -3127,10 +2490,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'       => esc_html__( 'Custom excerpt length', 'exs' ),
 					'description' => esc_html__( 'Words amount', 'exs' ),
 					'default'     => esc_html( exs_option( 'search_excerpt_length', '' ) ),
-					'visible'     => array(
-						'key'   => 'search_show_full_text',
-						'value' => false,
-					),
 				),
 				'search_read_more_text'          => array(
 					'type'    => 'text',
@@ -3161,20 +2520,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_search',
 					'label'   => esc_html__( 'Show author avatar', 'exs' ),
 					'default' => esc_html( exs_option( 'search_show_author_avatar', false ) ),
-					'visible' => array(
-						'key'   => 'search_show_author',
-						'value' => true,
-					),
 				),
 				'search_before_author_word'      => array(
 					'type'    => 'text',
 					'section' => 'section_search',
 					'label'   => esc_html__( 'Text before author', 'exs' ),
 					'default' => esc_html( exs_option( 'search_before_author_word', '' ) ),
-					'visible' => array(
-						'key'   => 'search_show_author',
-						'value' => true,
-					),
 				),
 				'search_show_date'               => array(
 					'type'    => 'checkbox',
@@ -3187,20 +2538,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_search',
 					'label'   => esc_html__( 'Text before date', 'exs' ),
 					'default' => esc_html( exs_option( 'search_before_date_word', '' ) ),
-					'visible' => array(
-						'key'   => 'search_show_date',
-						'value' => true,
-					),
 				),
 				'search_show_human_date'         => array(
 					'type'    => 'checkbox',
 					'section' => 'section_search',
 					'label'   => esc_html__( 'Show human difference date', 'exs' ),
 					'default' => esc_html( exs_option( 'search_show_human_date', false ) ),
-					'visible' => array(
-						'key'   => 'search_show_date',
-						'value' => true,
-					),
 				),
 				'search_show_categories'         => array(
 					'type'    => 'checkbox',
@@ -3213,10 +2556,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_search',
 					'label'   => esc_html__( 'Text before categories', 'exs' ),
 					'default' => esc_html( exs_option( 'search_before_categories_word', '' ) ),
-					'visible' => array(
-						'key'   => 'search_show_categories',
-						'value' => true,
-					),
 				),
 				'search_show_tags'               => array(
 					'type'    => 'checkbox',
@@ -3229,10 +2568,6 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'section' => 'section_search',
 					'label'   => esc_html__( 'Text before tags', 'exs' ),
 					'default' => esc_html( exs_option( 'search_before_tags_word', '' ) ),
-					'visible' => array(
-						'key'   => 'search_show_tags',
-						'value' => true,
-					),
 				),
 				'search_show_comments_link'      => array(
 					'type'    => 'select',

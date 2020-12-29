@@ -4,7 +4,7 @@ Theme URI: https://zakratheme.com/
 Author: ThemeGrill
 Author URI: https://themegrill.com
 Description: Zakra is flexible, fast, lightweight and modern multipurpose theme that comes with many starter free sites (currently 10+ free starter sites and more will be added later) that you can use to make your site beautiful and professional. Check all the starter sites at https://zakratheme.com/demos. Suitable for personal blog, portfolio, WooCommerce stores, business websites and niche-based sites (like Cafe, Spa, Charity, Yoga, Wedding, Dentist, Education etc) as well. Works with Elementor plus other major page builders so you can create any layout you want. The theme is responsive, Gutenberg compatible, SEO friendly, translation ready and major WordPress plugins compatible.
-Version: 1.5.3
+Version: 1.5.5
 Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv3 or later
@@ -922,6 +922,7 @@ a:active {
 	height: auto;
 	overflow: initial;
 	opacity: 1;
+	z-index: 999;
 }
 
 .tg-primary-menu > div ul li a {
@@ -935,6 +936,7 @@ a:active {
 	height: auto;
 	overflow: initial;
 	opacity: 1;
+	z-index: 999;
 }
 
 .tg-primary-menu > div ul li ul {
@@ -948,7 +950,7 @@ a:active {
 	border: 1px solid #e9ecef;
 	width: 240px;
 	background: #fff;
-	z-index: 999;
+	z-index: -1;
 }
 
 .tg-primary-menu > div ul li ul.tg-edge {
@@ -2466,11 +2468,17 @@ body .tg-oembed-container * {
 	#primary {
 		margin-bottom: 60px;
 	}
+	#primary.pagebuilder-content {
+		margin-bottom: 0;
+	}
 	#primary,
 	#secondary {
 		width: 100% !important;
 		padding: 0;
 		border: none;
+	}
+	#secondary .widget:last-child {
+		margin-bottom: 0;
 	}
 	.tg-site-footer .tg-footer-widget-container {
 		-webkit-box-orient: vertical;
@@ -2499,6 +2507,7 @@ body .tg-oembed-container * {
 		-webkit-box-direction: normal;
 		-ms-flex-direction: column;
 		flex-direction: column;
+		row-gap: 0.8rem;
 	}
 	.tg-site-footer .tg-site-footer-bar .tg-site-footer-section-1,
 	.tg-site-footer .tg-site-footer-bar .tg-site-footer-section-2 {
@@ -2506,8 +2515,8 @@ body .tg-oembed-container * {
 		text-align: center;
 		margin: 0;
 	}
-	.tg-site-footer .tg-site-footer-bar .tg-site-footer-section-1 ul,
-	.tg-site-footer .tg-site-footer-bar .tg-site-footer-section-2 ul {
+	.tg-site-footer .tg-site-footer-bar .tg-site-footer-section-1 .menu,
+	.tg-site-footer .tg-site-footer-bar .tg-site-footer-section-2 .menu {
 		-webkit-box-pack: center;
 		-ms-flex-pack: center;
 		justify-content: center;

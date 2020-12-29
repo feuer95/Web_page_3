@@ -56,7 +56,7 @@ if ( ! function_exists( 'exs_setup' ) ) :
 		 *
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
-		add_theme_support( 'post-thumbnails', array( 'post' ) );
+		add_theme_support( 'post-thumbnails' );
 		set_post_thumbnail_size( 1140, 855 );
 
 		if ( ! isset( $content_width ) ) {
@@ -364,6 +364,21 @@ if ( ! function_exists( 'exs_widgets_init' ) ) :
 					'name'          => esc_html__( 'WP Job Manager Theme Global Sidebar', 'exs' ),
 					'id'            => 'sidebar-wpjm',
 					'description'   => esc_html__( 'This sidebar will appear on the WP Job Manager pages', 'exs' ),
+					'before_widget' => '<div id="%1$s" class="widget %2$s">',
+					'after_widget'  => '</div>',
+					'before_title'  => '<h3 class="widget-title"><span>',
+					'after_title'   => '</span></h3>',
+				)
+			);
+		}
+
+		//Events sidebar
+		if ( class_exists( 'Tribe__Events__Main' ) ) {
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'Events Theme Global Sidebar', 'exs' ),
+					'id'            => 'sidebar-events',
+					'description'   => esc_html__( 'This sidebar will appear on the Events calendar pages', 'exs' ),
 					'before_widget' => '<div id="%1$s" class="widget %2$s">',
 					'after_widget'  => '</div>',
 					'before_title'  => '<h3 class="widget-title"><span>',

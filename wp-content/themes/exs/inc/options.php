@@ -195,6 +195,7 @@ if ( ! function_exists( 'exs_get_default_options_array' ) ) :
 			'blog_page_name'                        => '',
 			'blog_show_full_text'                   => '',
 			'blog_excerpt_length'                   => '20',
+			'search_excerpt_length'                 => '20',
 			'blog_read_more_text'                   => '',
 			'blog_hide_taxonomy_type_name'          => '',
 			'blog_meta_options_heading'             => '',
@@ -623,5 +624,44 @@ if ( ! function_exists( 'exs_get_root_colors_inline_styles_string' ) ) :
 		$exs_colors_string .= exs_option( 'colorMain2', '' ) ? '--colorMain2:' . sanitize_hex_color( exs_option( 'colorMain2', '' ) ) . ';' : '';
 
 		return apply_filters( 'exs_root_colors_inline_styles_string', $exs_colors_string );
+	}
+endif;
+
+//get typography settings inline styles string
+if ( ! function_exists( 'exs_get_typography_inline_styles_string' ) ) :
+	function exs_get_typography_inline_styles_string() {
+		//typography
+		$exs_typography_string = '';
+		$exs_body_string = '';
+
+		//body
+		$exs_body_string .= exs_option( 'typo_body_size' ) ? 'font-size:' . (int) exs_option( 'typo_body_size' ) . 'px;' : '';
+		$exs_body_string .= exs_option( 'typo_body_weight' ) ? 'font-weight:' . (int) exs_option( 'typo_body_weight' ) . ';' : '';
+		$exs_body_string .= exs_option( 'typo_body_line_height' ) ? 'line-height:' . (float) exs_option( 'typo_body_line_height' ) . 'em;' : '';
+		$exs_body_string .= exs_option( 'typo_body_letter_spacing' ) ? 'letter-spacing:' . (float) exs_option( 'typo_body_letter_spacing' ) . 'em;' : '';
+
+		if ( $exs_body_string ) {
+			$exs_typography_string = 'body{' . $exs_body_string . '}';
+		}
+
+		//paragraph
+		$exs_typography_string .= ! empty( exs_option( 'typo_p_margin_bottom' ) ) ? 'p{margin-bottom:' . (float) exs_option( 'typo_p_margin_bottom' ) . 'em;}' : '';
+
+		//headings
+		foreach( array( 1, 2, 3, 4, 5, 6 ) as $h ) {
+			$h_string = '';
+			$h_string .= ! empty( exs_option( 'typo_size_h' . $h ) ) ? 'font-size:' . (float) exs_option( 'typo_size_h' . $h ) . 'em;' : '';
+			$h_string .= ! empty( exs_option( 'typo_line_height_h' . $h ) ) ? 'line-height:' . (float) exs_option( 'typo_line_height_h' . $h ) . 'em;' : '';
+			$h_string .= ! empty( exs_option( 'typo_letter_spacing_h' . $h ) ) ? 'letter-spacing:' . exs_option( 'typo_letter_spacing_h' . $h ) .'em;' : '';
+			$h_string .= ! empty( exs_option( 'typo_weight_h' . $h ) ) ? 'font-weight:' . (int) exs_option( 'typo_weight_h' . $h ) . ';' : '';
+			$h_string .= ! empty( exs_option( 'typo_mt_h' . $h ) ) ? 'margin-bottom:' . (float) exs_option( 'typo_mt_h' . $h ) . 'em;': '';
+			$h_string .= ! empty( exs_option( 'typo_mb_h' . $h ) ) ? 'margin-top:' . (float) exs_option( 'typo_mb_h' . $h ) . 'em;' : '';
+
+			if ( $h_string ) {
+				$exs_typography_string .= 'h' . $h . '{' . $h_string . '}';
+			}
+		}
+
+		return apply_filters( 'exs_typography_inline_styles_string', $exs_typography_string );
 	}
 endif;

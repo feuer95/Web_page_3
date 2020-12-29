@@ -13,6 +13,7 @@ ExS WordPress theme is designed to be most fastest, flexible and SEO friendly th
 
 ExS theme is a fastest and smallest multipurpose Gutenberg compatible highly customizable theme without 3rd party dependencies. It is designed to have 100% Google Page and LightHouse speed. It has an extra small size of CSS (70kB) and JS (3kB) assets, 100% SEO optimised and valid code and it is 100% mobile friendly. It also has a WooCommerce and Easy Digital Downloads (EDD) plugin support so it will be perfect solution for your online store and e-commerce business.
 bbPress extended support makes ExS theme perfect for your forum. BuddyPress and Ultimate member support will help to create your social network with ExS theme. WP Job manager and Simple Job Board support will help you to create your job board.
+The Events Calendar advanced support will help you to create your events site.
 It has unlimited color options, headers and footers layouts, 15+ blog layouts, separate layouts for each category and many more super useful features that you can set up directly in your Customizer with live preview.
 ExS theme has builtin multiple page templates to perfectly work with any page builder such as Elementor, Beaver Builder, WPBackery, Brizy etc.
 ExS uses WordPress starter content feature so you can setup your pages immediately after WordPress and theme installation by simply going to Customizer and publishing your changes.
@@ -46,6 +47,20 @@ License: CC0 1.0 Universal (CC0 1.0)
 Source: https://pxhere.com/en/photo/166862
 
 == Changelog ==
+
+= 0.9.0, December 17, 2020 =
++ Full Typography control in the Customizer with live preview without page reload
++ Customizer selective refresh for better user experience during the theme customisation
+* Minor CSS bug fixes (for The Events Calendar plugin)
+
+= 0.8.0, December 2, 2020 =
++ The Events Calendar plugin advanced theme support
+
+= 0.7.7, November 24, 2020 =
+* Simple Job Board plugin new version advanced support
+
+= 0.7.6, November 14, 2020 =
++ Top footer section image added (useful for bottom logo)
 
 = 0.7.5, November 6, 2020 =
 * Fix searchform.php for using with the Elementor page builder

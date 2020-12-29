@@ -255,6 +255,55 @@ if ( ! function_exists( 'exs_get_layout_css_classes' ) ) :
 			}
 		endif; //WP Job Manager
 
+		//The Events Calendar
+		if ( exs_is_events() ) :
+			$exs_events_sidebar_position_option = is_singular() ? exs_option( 'event_sidebar_position', '' ) : exs_option( 'events_sidebar_position', '' );
+			//if empty sidebar or disabled in customizer - removing aside
+			if ( ! is_active_sidebar( 'sidebar-events' ) || 'no' === $exs_events_sidebar_position_option ) {
+				$exs_return['body']  = 'no-sidebar';
+				$exs_return['aside'] = false;
+
+				return $exs_return;
+			} //is_active_sidebar( 'sidebar-events' )
+
+			//if is page and one of page templates without sidebar is used:
+			//pages
+			if ( is_page() ) {
+
+				//no sidebar
+				if (
+					is_page_template( 'page-templates/full-width.php' )
+					||
+					is_page_template( 'page-templates/empty-page.php' )
+					||
+					is_page_template( 'page-templates/empty-page-container.php' )
+					||
+					is_page_template( 'page-templates/no-sidebar-720.php' )
+					||
+					is_page_template( 'page-templates/no-sidebar-960.php' )
+					||
+					is_page_template( 'page-templates/no-sidebar-1140.php' )
+					||
+					is_page_template( 'page-templates/no-sidebar-no-title.php' )
+				) {
+					$exs_return['body']  = 'no-sidebar';
+					$exs_return['aside'] = false;
+
+					return $exs_return;
+				}
+			}//is_page()
+
+			//left sidebar
+			if ( 'left' === $exs_events_sidebar_position_option ) {
+				$exs_return['body'] .= ' sidebar-left';
+
+				return $exs_return;
+				//default - right sidebar
+			} else {
+				return $exs_return;
+			}
+		endif; //The Events Calendar
+
 		//if category has meta - overriding default customizer option option
 		if ( is_category() ) {
 			$exs_sidebar_position_option = exs_get_category_sidebar_position();
@@ -598,6 +647,10 @@ if ( ! function_exists( 'exs_body_classes' ) ) :
 		$exs_container_bbpress_width    = exs_option( 'bbpress_container_width', '' );
 		$exs_container_buddypress_width = exs_option( 'buddypress_container_width', '' );
 		$exs_container_wpjm_width       = exs_option( 'wpjm_container_width', '' );
+		$exs_container_events_width     = is_singular() ? exs_option( 'event_container_width', '' ) : exs_option( 'events_container_width', '' ) ;
+		if ( exs_is_events() && ! empty( $exs_container_events_width ) ) {
+			$exs_container_width = $exs_container_events_width;
+		}
 		if ( exs_is_wpjm() && ! empty( $exs_container_wpjm_width ) ) {
 			$exs_container_width = $exs_container_wpjm_width;
 		}
@@ -682,7 +735,7 @@ if ( ! function_exists( 'exs_body_classes' ) ) :
 
 		//animation enabled
 		$exs_animation = exs_option( 'animation_enabled', '' );
-		if ( ! empty( $exs_animation ) ) {
+		if ( ! empty( $exs_animation ) && ! is_customize_preview() ) {
 			$exs_classes[] = 'animation-enabled';
 		}
 
@@ -714,7 +767,7 @@ if ( ! function_exists( 'exs_animated_elements_markup' ) ) :
 		);
 
 		$exs_animations = array_filter( $exs_animations );
-		if ( ! empty( $exs_animations ) ) :
+		if ( ! empty( $exs_animations ) && ! is_customize_preview() ) :
 			?>
 			data-animate='<?php echo esc_attr( str_replace( '&quot;', '"', json_encode( $exs_animations ) ) ); ?>'
 			<?php
@@ -1840,7 +1893,6 @@ if ( ! function_exists( 'exs_read_more_in_excerpt' ) ) :
 			return exs_read_more_markup_excerpt();
 		}
 
-
 		if ( empty( $exs_read_more_text ) ) {
 			return $exs_excerpt;
 		}
@@ -1858,7 +1910,8 @@ if ( ! function_exists( 'exs_excerpt_custom_length' ) ) :
 		if ( is_admin() ) {
 			return $exs_length;
 		}
-		return absint( exs_option( 'blog_excerpt_length', '' ) );
+		$exs_excerpt_length = is_search() ? exs_option( 'search_excerpt_length', '' ) : exs_option( 'blog_excerpt_length', '' );
+		return absint( $exs_excerpt_length );
 	}
 endif;
 add_filter( 'excerpt_length', 'exs_excerpt_custom_length', 999 );
@@ -2106,6 +2159,20 @@ if ( ! function_exists( 'exs_is_wpjm' ) ) :
 		$exs_return = false;
 		if ( function_exists( 'is_wpjm' ) ) {
 			if ( is_wpjm() ) {
+				$exs_return = true;
+			}
+		}
+
+		return $exs_return;
+	}
+endif;
+
+//detect The Events Calendar - handy for sidebar and breadcrumbs
+if ( ! function_exists( 'exs_is_events' ) ) :
+	function exs_is_events() {
+		$exs_return = false;
+		if ( function_exists( 'tribe_is_event_query' ) ) {
+			if ( tribe_is_event_query() ) {
 				$exs_return = true;
 			}
 		}

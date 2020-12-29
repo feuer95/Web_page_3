@@ -14,12 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 //text
+$exs_footer_top_image       = exs_option( 'footer_top_image', '' );
 $exs_footer_top_pre_heading = exs_option( 'footer_top_pre_heading', '' );
 $exs_footer_top_heading     = exs_option( 'footer_top_heading', '' );
 $exs_footer_top_description = exs_option( 'footer_top_description', '' );
 $exs_footer_top_shortcode   = exs_option( 'footer_top_shortcode', '' );
 
 if (
+	empty( $exs_footer_top_image )
+	&&
 	empty( $exs_footer_top_pre_heading )
 	&&
 	empty( $exs_footer_top_heading )
@@ -28,8 +31,12 @@ if (
 	&&
 	empty( $exs_footer_top_shortcode )
 ) {
+	if( is_customize_preview() ) {
+		echo '<section id="footer-top" class="d-none"></section>';
+	}
 	return;
 }
+
 
 $exs_fluid = exs_option( 'footer_fluid' ) ? '-fluid' : '';
 
@@ -77,6 +84,12 @@ $exs_footer_top_shortcode_animation     = exs_option( 'footer_top_shortcode_anim
 			<div class="grid-wrapper">
 				<div class="grid-item">
 					<?php
+
+					//top footer image
+					if ( ! empty( $exs_footer_top_image ) ) {
+						echo '<img src="' . $exs_footer_top_image . '" alt="' . esc_attr( $exs_footer_top_heading ) . '">';
+					}
+
 					if ( ! empty( $exs_footer_top_pre_heading ) ) :
 						$exs_footer_top_pre_heading_mt = exs_option( 'footer_top_pre_heading_mt', '' );
 						$exs_footer_top_pre_heading_mb = exs_option( 'footer_top_pre_heading_mb', '' );

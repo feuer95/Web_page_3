@@ -52,6 +52,9 @@ if (
 	&&
 	empty( $exs_show_search )
 ) {
+	if( is_customize_preview() ) {
+		echo '<section id="intro" class="d-none"></section>';
+	}
 	return;
 }
 //if fullscreen - adding class to font size

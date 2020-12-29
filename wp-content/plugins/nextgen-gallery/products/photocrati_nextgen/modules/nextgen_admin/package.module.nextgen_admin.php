@@ -365,7 +365,14 @@ class C_Admin_Notification_Manager
             // Does the handler want to render?
             $has_method = method_exists($handler, 'is_renderable');
             if ($has_method && $handler->is_renderable() || !$has_method) {
-                $show_dismiss_button = method_exists($handler, 'show_dismiss_button') ? $handler->show_dismiss_button() : (method_exists($handler, 'is_dismissable') ? $handler->is_dismissable() : FALSE);
+                $show_dismiss_button = false;
+                if (method_exists($handler, 'show_dismiss_button')) {
+                    $show_dismiss_button = $handler->show_dismiss_button();
+                } else {
+                    if (method_exists($handler, 'is_dismissable')) {
+                        $show_dismiss_button = $handler->is_dismissable();
+                    }
+                }
                 $template = method_exists($handler, 'get_mvc_template') ? $handler->get_mvc_template() : 'photocrati-nextgen_admin#admin_notice';
                 // The 'inline' class is necessary to prevent our notices from being moved in the DOM
                 // see https://core.trac.wordpress.org/ticket/34570 for reference
@@ -988,23 +995,21 @@ class C_NextGen_Admin_Page_Controller extends C_MVC_Controller
 class Mixin_NextGen_Admin_Page_Instance_Methods extends Mixin
 {
     /**
+     * @param string $privilege
+     * @return bool
+     *
      * Authorizes the request
      */
     function is_authorized_request($privilege = NULL)
     {
-        $retval = TRUE;
         if (!$privilege) {
             $privilege = $this->object->get_required_permission();
         }
+        if ($this->object->is_post_request() && (!isset($_REQUEST['nonce']) || !M_Security::verify_nonce($_REQUEST['nonce'], $privilege))) {
+            return FALSE;
+        }
         // Ensure that the user has permission to access this page
-        if (!M_Security::is_allowed($privilege)) {
-            $retval = FALSE;
-        }
-        // Ensure that nonce is valid
-        if ($this->object->is_post_request() && (isset($_REQUEST['nonce']) && !M_Security::verify_nonce($_REQUEST['nonce'], $privilege))) {
-            $retval = FALSE;
-        }
-        return $retval;
+        return M_Security::is_allowed($privilege);
     }
     /**
      * Returns the permission required to access this page

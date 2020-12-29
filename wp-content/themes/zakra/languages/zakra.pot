@@ -19,11 +19,6 @@ msgstr ""
 msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
 msgstr ""
 
-#. translators: 1: title.
-#: comments.php:35
-msgid "One thought on &ldquo;%1$s&rdquo;"
-msgstr ""
-
 #. translators: 1: comment count number, 2: title.
 #: comments.php:41
 msgctxt "comments title"
@@ -31,6 +26,10 @@ msgid "%1$s thought on &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] ""
 msgstr[1] ""
+
+#: comments.php:35
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
 
 #: comments.php:66
 msgid "Comments are closed."
@@ -109,16 +108,16 @@ msgstr ""
 msgid "%s Options"
 msgstr ""
 
-#: inc/admin/class-zakra-dashboard.php:50
-msgid "Activate ThemeGrill Demo Importer Plugin"
+#: inc/admin/class-zakra-dashboard.php:54
+msgid "Demo Library"
 msgstr ""
 
 #: inc/admin/class-zakra-dashboard.php:52
 msgid "Install ThemeGrill Demo Importer Plugin"
 msgstr ""
 
-#: inc/admin/class-zakra-dashboard.php:54
-msgid "Demo Library"
+#: inc/admin/class-zakra-dashboard.php:50
+msgid "Activate ThemeGrill Demo Importer Plugin"
 msgstr ""
 
 #: inc/admin/class-zakra-dashboard.php:73, inc/customizer/register-panels-and-sections.php:241
@@ -1219,9 +1218,13 @@ msgstr ""
 msgid "Scroll to Top"
 msgstr ""
 
-#. translators: 1: Current Year, 2: Site Name, 3: Theme Name.
-#: inc/helpers.php:157
-msgid "Copyright &copy; %1$s %2$s. Theme: %3$s By ThemeGrill."
+#: inc/helpers.php:154, inc/helpers.php:154
+msgid "WordPress"
+msgstr ""
+
+#. translators: 1: Current Year, 2: Site Name, 3: Theme Link, 4: WordPress Link.
+#: inc/helpers.php:158
+msgid "Copyright &copy; %1$s %2$s. Powered by %3$s and %4$s."
 msgstr ""
 
 #: inc/hooks/footer.php:240
@@ -1272,32 +1275,28 @@ msgstr ""
 msgid "Page Settings"
 msgstr ""
 
-#. translators: %s: author.
-#: inc/template-functions.php:209
-msgid "Author: %s"
-msgstr ""
-
-#. translators: %s: day
-#: inc/template-functions.php:222
-msgid "Day: %s"
-msgstr ""
-
-#. translators: %s: month
-#: inc/template-functions.php:226
-msgid "Month: %s"
-msgstr ""
-
-#. translators: %s: year.
-#: inc/template-functions.php:230
-msgid "Year: %s"
+#: inc/template-functions.php:242
+msgid "Search Results"
 msgstr ""
 
 #: inc/template-functions.php:240
 msgid "Page Not Found"
 msgstr ""
 
-#: inc/template-functions.php:242
-msgid "Search Results"
+#: inc/template-functions.php:230
+msgid "Year: %s"
+msgstr ""
+
+#: inc/template-functions.php:226
+msgid "Month: %s"
+msgstr ""
+
+#: inc/template-functions.php:222
+msgid "Day: %s"
+msgstr ""
+
+#: inc/template-functions.php:209
+msgid "Author: %s"
 msgstr ""
 
 #: inc/template-functions.php:351

@@ -75,6 +75,11 @@ if ( class_exists( 'CLD_Comments_like_dislike' ) ) {
 	require_once EXS_THEME_PATH . '/inc/integrations/comments-like-dislike.php';
 }
 
+//Events Calendar
+if ( class_exists( 'Tribe__Events__Main' ) ) {
+	require_once EXS_THEME_PATH . '/inc/integrations/events-calendar.php';
+}
+
 if ( EXS_EXTRA ) {
 
 	if ( ! function_exists( 'exs_fs' ) ) {
@@ -141,7 +146,8 @@ if ( is_admin() ) {
 }
 
 //only for customizer
-if ( is_admin() || is_customize_preview() || EXS_DEV_MODE ) {
+//if ( is_admin() || is_customize_preview() || EXS_DEV_MODE ) {
+if ( is_customize_preview() || EXS_DEV_MODE ) {
 
 	//CUSTOMIZER INIT
 	require_once EXS_THEME_PATH . '/inc/customizer.php';

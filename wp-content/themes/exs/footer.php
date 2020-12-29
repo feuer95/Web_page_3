@@ -85,17 +85,7 @@ if ( empty( $exs_header ) ) :
 	<?php
 endif; //header
 
-$exs_to_top = exs_option( 'totop', '' );
-//page totop button
-if ( ! empty( $exs_to_top ) ) :
-	?>
-	<a id="to-top" href="#body">
-		<span class="screen-reader-text">
-			<?php esc_html_e( 'Go to top', 'exs' ); ?>
-		</span>
-	</a>
-	<?php
-endif; //totop_enabled
+get_template_part( 'template-parts/footer/footer-totop' );
 
 /**
  * Fires at the bottom of whole web page before the wp_footer function.
@@ -103,7 +93,7 @@ endif; //totop_enabled
  * @since ExS 0.0.4
  */
 do_action( 'exs_action_before_wp_footer' );
-
+//exs_print_customizer_settings_ids();
 wp_footer();
 ?>
 </body>

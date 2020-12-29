@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WordPress Gallery Plugin &#8211; NextGEN Gallery - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-10-13 17:08:07+0000\n"
+"PO-Revision-Date: 2020-12-24 23:06:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,92 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: it\n"
 "Project-Id-Version: Plugins - WordPress Gallery Plugin &#8211; NextGEN Gallery - Stable (latest release)\n"
+
+#: products/photocrati_nextgen/modules/ngglegacy/admin/overview.php:263
+msgid "NextGEN Basic"
+msgstr "NextGEN Basic"
+
+#: products/photocrati_nextgen/modules/ngglegacy/admin/overview.php:260
+msgid "NextGEN Pro"
+msgstr "NextGEN Pro"
+
+#: products/photocrati_nextgen/modules/ngglegacy/admin/overview.php:244
+msgid "Other"
+msgstr "Altro"
+
+#: products/photocrati_nextgen/modules/nextgen_basic_gallery/package.module.nextgen_basic_gallery.php:363
+#: products/photocrati_nextgen/modules/nextgen_basic_gallery/package.module.nextgen_basic_gallery.php:373
+msgid "Milliseconds"
+msgstr "Millisecondi"
+
+#: products/photocrati_nextgen/modules/nextgen_basic_gallery/package.module.nextgen_basic_gallery.php:353
+msgid "Transition Style"
+msgstr "Stile di transizione"
+
+#: products/photocrati_nextgen/modules/nextgen_basic_gallery/package.module.nextgen_basic_gallery.php:373
+msgid "Transition Speed"
+msgstr "Velocità della transizione"
+
+#: products/photocrati_nextgen/modules/nextgen_xmlrpc/package.module.nextgen_xmlrpc.php:877
+msgid " (%1$s)."
+msgstr " (%1$s)."
+
+#: products/photocrati_nextgen/modules/marketing/package.module.marketing.php:193
+msgid "Learn more"
+msgstr "Approfondisci"
+
+#: products/photocrati_nextgen/modules/nextgen_admin/templates/review_notice.php:16
+msgid "I already did"
+msgstr "L'ho già fatto"
+
+#: products/photocrati_nextgen/modules/nextgen_admin/templates/review_notice.php:15
+msgid "Nope, maybe later"
+msgstr "No, magari più tardi"
+
+#: products/photocrati_nextgen/modules/nextgen_admin/templates/review_notice.php:14
+msgid "Ok, you deserve it"
+msgstr "Ok, te lo meriti"
+
+#: products/photocrati_nextgen/modules/nextgen_admin/templates/nextgen_admin_page.php:72
+msgid "Save Options"
+msgstr "Salva le opzioni"
+
+#: products/photocrati_nextgen/modules/nextgen_admin/templates/admin_notice.php:4
+#: products/photocrati_nextgen/modules/nextgen_admin/templates/requirement_notice.php:4
+msgid "Dismiss"
+msgstr "Ignora"
+
+#: products/photocrati_nextgen/modules/attach_to_post/module.attach_to_post.php:266
+msgid "Add Gallery"
+msgstr "Aggiungi galleria"
+
+#: products/photocrati_nextgen/modules/attach_to_post/templates/display_tab.php:24
+msgid "Insert Gallery"
+msgstr "Inserisci galleria"
+
+#: products/photocrati_nextgen/modules/attach_to_post/package.module.attach_to_post.php:603
+msgid "Click to edit"
+msgstr "Fai clic per modificare"
+
+#: products/photocrati_nextgen/modules/imagify/lib/class-imagify-partner.php:535
+msgid "Go back"
+msgstr "Torna indietro"
+
+#: products/photocrati_nextgen/modules/nextgen_pro_upgrade/package.module.nextgen_pro_upgrade.php:40
+msgid "Extensions"
+msgstr "Estensioni"
+
+#. Author URI of the plugin
+msgid "https://www.imagely.com"
+msgstr "https://www.imagely.com"
+
+#. Author of the plugin
+msgid "Imagely"
+msgstr "Imagely"
+
+#. Plugin URI of the plugin
+msgid "https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/"
+msgstr "https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/showmeta.php:34
 #: products/photocrati_nextgen/modules/ngglegacy/admin/showmeta.php:63
@@ -524,6 +610,10 @@ msgstr "Usa pulsante TinyMCE / Scheda caricamento"
 #: products/photocrati_nextgen/modules/ngglegacy/admin/wpmu.php:96
 msgid "Enable roles/capabilities"
 msgstr "Abilita ruoli/capacità"
+
+#. Description of the plugin
+msgid "The most popular gallery plugin for WordPress and one of the most popular plugins of all time with over 30 million downloads."
+msgstr "Il plugin di gallerie di immagini più popolare per WordPress e uno dei plugin più popolari di tutti i tempi con oltre 30 milioni di download."
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/edit-thumbnail.php:19
 #: products/photocrati_nextgen/modules/ngglegacy/admin/edit-thumbnail.php:22
@@ -2102,6 +2192,10 @@ msgstr "Elementi per pagina"
 #: products/photocrati_nextgen/modules/nextgen_basic_album/package.module.nextgen_basic_album.php:845
 msgid "Galleries per page"
 msgstr "Gallerie per pagina"
+
+#: products/photocrati_nextgen/modules/attach_to_post/package.module.attach_to_post.php:492
+msgid "Select a Gallery"
+msgstr "Seleziona una galleria"
 
 #: products/photocrati_nextgen/modules/attach_to_post/package.module.attach_to_post.php:142
 msgid "Album: %s"

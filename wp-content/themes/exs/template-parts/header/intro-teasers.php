@@ -17,6 +17,9 @@ $exs_teasers        = exs_get_intro_teasers();
 $exs_section_layout = exs_option( 'intro_teaser_section_layout', '' );
 
 if ( empty( $exs_section_layout ) || empty( $exs_teasers ) ) {
+	if( is_customize_preview() ) {
+		echo '<section id="intro-teasers" class="d-none"></section>';
+	}
 	return;
 }
 

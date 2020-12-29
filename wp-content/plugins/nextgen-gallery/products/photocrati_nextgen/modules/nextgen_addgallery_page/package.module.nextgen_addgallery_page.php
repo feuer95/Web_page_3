@@ -90,7 +90,7 @@ class A_NextGen_AddGallery_Ajax extends Mixin
         if (!$this->validate_ajax_request('nextgen_upload_image', TRUE)) {
             $action = 'nextgen_upload_image';
             $retval['allowed'] = M_Security::is_allowed($action);
-            $retval['verified_token'] = !$_REQUEST['nonce'] || wp_verify_nonce($_REQUEST['nonce'], $action);
+            $retval['verified_token'] = !$_REQUEST['nonce'] || !wp_verify_nonce($_REQUEST['nonce'], $action);
             $retval['error'] = __("No permissions to upload images. Try refreshing the page or ensuring that your user account has sufficient roles/privileges.", 'nggallery');
             return $retval;
         }
@@ -174,7 +174,7 @@ class A_NextGen_AddGallery_Ajax extends Mixin
         } else {
             $action = 'nextgen_upload_image';
             $retval['allowed'] = M_Security::is_allowed($action);
-            $retval['verified_token'] = !$_REQUEST['nonce'] || wp_verify_nonce($_REQUEST['nonce'], $action);
+            $retval['verified_token'] = !$_REQUEST['nonce'] || !wp_verify_nonce($_REQUEST['nonce'], $action);
             $retval['error'] = __("No permissions to upload images. Try refreshing the page or ensuring that your user account has sufficient roles/privileges.", 'nggallery');
         }
         // Sending a 500 header is used for uppy.js to determine upload failures
@@ -236,7 +236,7 @@ class A_NextGen_AddGallery_Ajax extends Mixin
     function import_folder_action()
     {
         $retval = array();
-        if ($this->validate_ajax_request('nextgen_upload_image', $_REQUEST['nonce'])) {
+        if ($this->validate_ajax_request('nextgen_upload_image', TRUE)) {
             if ($folder = $this->param('folder')) {
                 $storage = C_Gallery_Storage::get_instance();
                 $fs = C_Fs::get_instance();
@@ -279,7 +279,7 @@ class A_NextGen_AddGallery_Ajax extends Mixin
         $gallery_mapper = C_Gallery_Mapper::get_instance();
         $image_mapper = C_Image_Mapper::get_instance();
         $attachment_ids = $this->param('attachment_ids');
-        if ($this->validate_ajax_request('nextgen_upload_image', $_REQUEST['nonce'])) {
+        if ($this->validate_ajax_request('nextgen_upload_image', TRUE)) {
             if (empty($attachment_ids) || !is_array($attachment_ids)) {
                 $retval['error'] = __('An unexpected error occured.', 'nggallery');
             }

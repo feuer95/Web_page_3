@@ -1,11 +1,11 @@
 === Zakra ===
 Contributors: themegrill
 Author: ThemeGrill
-Version: 1.5.3
+Version: 1.5.5
 Tested up to: 5.4
 Requires PHP: 5.6
 Requires at least: 4.7
-Stable tag: 1.5.3
+Stable tag: 1.5.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Tags: one-column, two-columns, right-sidebar, grid-layout, custom-background, custom-colors, custom-menu, custom-logo, featured-images, footer-widgets, full-width-template, theme-options, threaded-comments, translation-ready, blog, rtl-language-support
@@ -60,6 +60,15 @@ License: GNU GPL, Version 3, https://www.gnu.org/licenses/gpl-3.0.html
 Unless otherwise specified, all the theme files, scripts and images including the screenshot image are licensed under [GNU GPL] (http://www.gnu.org/licenses/gpl-3.0.txt), version 3 or later.
 
 == Changelog ==
+= Version 1.5.5 - 2020-12-17 =
+* Fix   - Spacing below content area on smaller devices while PageBuilder Page Template.
+* Tweak - Update footer credit link with `rel="nofollow"` attributes.
+
+= Version 1.5.4 - 2020-11-24 =
+* Fix - Menu bar closing while hovering over sub menu items.
+* Fix - Footer bottom bar content spacing and alignment issue in mobile devices.
+* Fix - PHP undefined index notice while first load after installation.
+
 = Version 1.5.3 - 2020-10-13 =
 * Fix         - Mobile menu toggle button not working on IE11 or lower browsers.
 * Enhancement - Rearranged customizer sections and options.

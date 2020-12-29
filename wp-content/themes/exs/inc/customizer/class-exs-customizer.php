@@ -141,7 +141,26 @@ if ( ! class_exists( 'ExS_Customizer' ) ) :
 							)
 						);
 						break;
-					// block-heading
+					// range
+					// see ExS_Slider_Control class
+					case 'slider':
+						$customizer->add_control(
+							new ExS_Slider_Control(
+								$customizer,
+								$setting_id,
+								array(
+									'active_callback' => $active_callback,
+									'description'     => $setting['description'],
+									'input_attrs'     => $setting['input_attrs'],
+									'label'           => $setting['label'],
+									'priority'        => $setting['weight'],
+									'section'         => $setting['section'],
+									'settings'        => $setting_id,
+								)
+							)
+						);
+						break;
+					// extra-button
 					// see ExS_Block_Extra_Button_Control class
 					case 'extra-button':
 						$customizer->add_control(

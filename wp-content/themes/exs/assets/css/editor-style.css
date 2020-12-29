@@ -473,21 +473,23 @@ mark{
 	fill: var(--colorDarkMuted);
 }
 
-.i .affix.l,
-.i .affix.l.m{
+.i .affix.l{
 	color: #fff;
 }
 
-.i .affix.l a,
-.i .affix.l.m a{
+.i .affix.l a:not([class*='button']){
 	color: #222222;
 	color: var(--colorDarkMuted);
 }
 
-.i .affix.l a:hover,
-.i .affix.l.m a:hover{
+.i .affix.l a:not([class*='button']):hover{
 	color: #a17de8;
 	color: var(--colorMain);
+}
+
+.i .affix.l [type="search"]{
+	border-color: var(--colorBorder);
+	color: var(--colorDarkMuted);
 }
 
 .i .section-hr{
@@ -1214,21 +1216,23 @@ mark{
 	fill: var(--colorDarkMuted);
 }
 
-.i .affix.l,
-.i .affix.l.m{
+.i .affix.l{
 	color: #fff;
 }
 
-.i .affix.l a,
-.i .affix.l.m a{
+.i .affix.l a:not([class*='button']){
 	color: #222222;
 	color: var(--colorDarkMuted);
 }
 
-.i .affix.l a:hover,
-.i .affix.l.m a:hover{
+.i .affix.l a:not([class*='button']):hover{
 	color: #a17de8;
 	color: var(--colorMain);
+}
+
+.i .affix.l [type="search"]{
+	border-color: var(--colorBorder);
+	color: var(--colorDarkMuted);
 }
 
 .i .section-hr{
